@@ -3,35 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CiberEscuela | Aprendizaje Seguro</title>
-    <!-- Estilo visual rápido -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <title>CiberEscuela - Aprende Seguridad Digital</title>
+    <!-- Usamos un estilo elegante y oscuro para que parezca de hackers -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <style>
+        .card { border: 1px solid #444; padding: 15px; border-radius: 8px; margin-bottom: 20px; background: #222; }
+        .badge { background: #007bff; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; }
+        nav { position: sticky; top: 0; background: #161b22; padding: 10px; z-index: 100; border-bottom: 1px solid #444; }
+        nav a { margin-right: 15px; text-decoration: none; font-weight: bold; }
+    </style>
 </head>
 <body>
 
-    <h1>🛡️ CiberEscuela: Navega con Inteligencia</h1>
-    
-    <section>
-        <h2>¿Qué es la Ciberseguridad?</h2>
-        <p>Es el conjunto de herramientas y prácticas que usamos para proteger nuestra información digital.</p>
-    </section>
+    <header>
+        <h1>🛡️ CiberEscuela</h1>
+        <p><em>"La primera línea de defensa eres TÚ"</em></p>
+    </header>
 
-    <section>
-        <h2>📚 Lecciones</h2>
-        <ul>
-            <li><strong>Módulo 1:</strong> La Tríada CIA (Confidencialidad, Integridad, Disponibilidad).</li>
-            <li><strong>Módulo 2:</strong> Reconociendo el Phishing.</li>
-            <li><strong>Módulo 3:</strong> Contraseñas y MFA.</li>
-        </ul>
-    </section>
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#modulo1">Módulo 1</a>
+        <a href="#modulo2">Módulo 2</a>
+        <a href="#modulo3">Módulo 3</a>
+        <a href="#actividades">Actividades</a>
+    </nav>
 
-    <section>
-        <h2>🎮 Actividad: El Reto de la Contraseña</h2>
-        <p>Intenta crear una contraseña usando una frase y símbolos. ¡No uses tu nombre!</p>
-    </section>
+    <main id="inicio">
+        <section>
+            <h2>Bienvenido al curso de Ciberseguridad</h2>
+            <p>En este portal aprenderás a protegerte en el mundo digital. La ciberseguridad no es solo para expertos, es una habilidad necesaria para todos hoy en día.</p>
+        </section>
+
+        <!-- MÓDULO 1 -->
+        <section id="modulo1" class="card">
+            <h2><span class="badge">Módulo 1</span> La Tríada CIA</h2>
+            <p>Todo en ciberseguridad se basa en estos tres pilares fundamentales:</p>
+            <ul>
+                <li><strong>Confidencialidad:</strong> Solo las personas autorizadas pueden ver los datos.</li>
+                <li><strong>Integridad:</strong> Los datos no deben ser alterados sin permiso.</li>
+                <li><strong>Disponibilidad:</strong> Los sistemas deben funcionar cuando se necesiten.</li>
+            </ul>
+        </section>
+
+        <!-- MÓDULO 2 -->
+        <section id="modulo2" class="card">
+            <h2><span class="badge">Módulo 2</span> Amenazas Comunes</h2>
+            <p>Para defenderte, debes conocer cómo atacan:</p>
+            <details>
+                <summary>🔍 <strong>Phishing (Suplantación)</strong></summary>
+                <p>Correos o mensajes falsos que parecen reales para robar tus contraseñas. Siempre revisa el remitente.</p>
+            </details>
+            <details>
+                <summary>🦠 <strong>Malware</strong></summary>
+                <p>Software malicioso diseñado para infiltrarse en tu dispositivo (Virus, Troyanos, Ransomware).</p>
+            </details>
+            <details>
+                <summary>🧠 <strong>Ingeniería Social</strong></summary>
+                <p>Engañar a las personas mediante la manipulación psicológica para que entreguen información confidencial.</p>
+            </details>
+        </section>
+
+        <!-- MÓDULO 3 -->
+        <section id="modulo3" class="card">
+            <h2><span class="badge">Módulo 3</span> Tu Escudo Digital</h2>
+            <p>Sigue estas reglas de oro para protegerte:</p>
+            <ol>
+                <li><strong>Usa MFA:</strong> La autenticación de dos pasos es tu mejor amigo.</li>
+                <li><strong>Contraseñas largas:</strong> Usa frases en lugar de palabras simples.</li>
+                <li><strong>Actualiza siempre:</strong> No ignores los avisos de actualización de Windows, Android o iOS.</li>
+            </ol>
+        </section>
+
+        <!-- ACTIVIDADES -->
+        <section id="actividades">
+            <h2>🎮 Zona de Desafíos</h2>
+            <p>Completa estas tareas para demostrar lo aprendido:</p>
+            <div style="background-color: #333; padding: 20px; border-left: 5px solid #00ff00;">
+                <h4>Desafío 1: El detective de enlaces</h4>
+                <p>¿Cuál de estos enlaces es seguro? 
+                <br>A) <code>http://tu-banco-seguro.com</code>
+                <br>B) <code>https://www.google.com</code></p>
+                <button onclick="alert('¡Correcto! La opción B tiene HTTPS y un dominio oficial.')">Ver respuesta</button>
+            </div>
+            <br>
+            <div style="background-color: #333; padding: 20px; border-left: 5px solid #00ff00;">
+                <h4>Desafío 2: Crea tu "Passphrase"</h4>
+                <p>Escribe en un papel una frase de 4 palabras aleatorias (Ej: <i>"miperrorojo_vuela_alto"</i>). Esa es más segura que cualquier contraseña compleja corta.</p>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>Página creada para el proyecto de Ciberseguridad en GitHub.</p>
+        <hr>
+        <p>Actualizado: 2025 | CiberEscuela Educativa</p>
     </footer>
 
 </body>
