@@ -6,464 +6,4251 @@
   <meta name="description" content="EDUFLOW: Microlearning interactivo para identificar señales de phishing en estudiantes universitarios.">
   <meta name="theme-color" content="#081426">
   <title>EDUFLOW | Microlearning para identificar phishing</title>
+
   <style>
     :root{
-      --bg:#06101d;--bg2:#0b1a2d;--surface:#0e2138;--surface2:#122a45;--text:#eef7ff;--muted:#b2c1d3;
-      --primary:#42d3ff;--primary2:#7c5cff;--accent:#63e6be;--success:#31d07c;--danger:#ff657d;--warning:#ffc95a;
-      --border:rgba(255,255,255,.10);--radius:18px;--shadow:0 20px 50px rgba(0,0,0,.28);--max:1180px;
+      --bg:#06101d;
+      --bg2:#0b1a2d;
+      --surface:#0e2138;
+      --surface2:#122a45;
+      --text:#eef7ff;
+      --muted:#b2c1d3;
+      --primary:#42d3ff;
+      --primary2:#7c5cff;
+      --accent:#63e6be;
+      --success:#31d07c;
+      --danger:#ff657d;
+      --warning:#ffc95a;
+      --border:rgba(255,255,255,.10);
+      --radius:18px;
+      --shadow:0 20px 50px rgba(0,0,0,.28);
+      --max:1180px;
     }
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}
-    body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65;background:radial-gradient(circle at 12% 7%,rgba(66,211,255,.12),transparent 23%),radial-gradient(circle at 88% 11%,rgba(124,92,255,.14),transparent 25%),linear-gradient(145deg,#06101d,#0a182a 48%,#071222)}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.11;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(#000,transparent 84%)}
-    a{color:#91dcff}.container{width:min(var(--max),calc(100% - 32px));margin:auto}button,input,textarea{font:inherit}
-    :focus-visible{outline:3px solid rgba(66,211,255,.65);outline-offset:3px}
 
-    .topbar{position:sticky;top:0;z-index:1000;background:rgba(5,13,25,.84);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);font-weight:850}.brandmark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#04101a;box-shadow:0 10px 28px rgba(66,211,255,.18)}
-    .navlinks{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.navlinks a{text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:10px;font-size:.89rem}.navlinks a:hover,.navlinks a.active{background:rgba(66,211,255,.08);color:var(--text)}
+    *{
+      box-sizing:border-box;
+    }
 
-    .hero{padding:68px 0 32px}.hero-grid{display:grid;grid-template-columns:1.28fr .72fr;gap:22px}.hero-card,.progress-card,.section-card,.lesson,.case,.final-card,.reflection-card{background:rgba(14,33,56,.9);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(12px)}
-    .hero-card{padding:42px;position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;width:330px;height:330px;right:-150px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(66,211,255,.22),transparent 68%)}
-    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border-radius:999px;border:1px solid rgba(66,211,255,.22);background:rgba(66,211,255,.07);color:#b8edff;text-transform:uppercase;letter-spacing:.08em;font-size:.76rem;font-weight:800}
-    h1{font-size:clamp(2.4rem,5vw,4.35rem);line-height:1.02;letter-spacing:-.05em;margin:19px 0 14px}.hero-sub{font-size:1.28rem;color:#dff1ff;margin:0 0 14px}.muted{color:var(--muted);font-size:.93rem}
-    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:.18s ease}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}.primary{background:linear-gradient(135deg,var(--primary),#7de2ff);color:#03111a}.secondary{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text)}.success{background:linear-gradient(135deg,var(--success),#5be59b);color:#04150c}.warningbtn{background:linear-gradient(135deg,var(--warning),#ffe28b);color:#231900}
-    .progress-card{padding:28px;display:flex;flex-direction:column;justify-content:center}.progress-top{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}.progress-top strong{font-size:2.25rem}.pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:#c9d7e7;font-size:.76rem;font-weight:750}.track{height:11px;background:#07121f;border:1px solid var(--border);border-radius:999px;overflow:hidden;margin:14px 0 9px}.bar{width:0;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));border-radius:inherit;transition:width .35s ease}
-    .callout{padding:15px;border:1px solid var(--border);border-radius:14px;margin-top:15px}.info{background:rgba(66,211,255,.055)}.successbox{background:rgba(49,208,124,.06)}.warningbox{background:rgba(255,201,90,.06)}.dangerbox{background:rgba(255,101,125,.07)}
+    html{
+      scroll-behavior:smooth;
+      scroll-padding-top:84px;
+    }
 
-    section{padding:24px 0 12px}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:17px}.section-head h2{margin:0;font-size:1.8rem}.section-head p{margin:6px 0 0;color:var(--muted);max-width:810px}
-    .micro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.micro-card{padding:19px;border:1px solid var(--border);border-radius:16px;background:rgba(8,23,40,.72)}.micro-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:rgba(66,211,255,.08);border:1px solid rgba(66,211,255,.12);margin-bottom:12px}.micro-card h3{margin:0 0 6px}.micro-card p{margin:0;color:var(--muted);font-size:.9rem}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 12% 7%,rgba(66,211,255,.12),transparent 23%),
+        radial-gradient(circle at 88% 11%,rgba(124,92,255,.14),transparent 25%),
+        linear-gradient(145deg,#06101d,#0a182a 48%,#071222);
+    }
 
-    .lesson{padding:28px}.two{display:grid;grid-template-columns:1.22fr .78fr;gap:19px}.panel{background:rgba(7,17,30,.5);border:1px solid var(--border);border-radius:15px;padding:20px}.panel h3,.panel h4{margin-top:0}.panel h4{margin-bottom:6px;color:#dff0ff}.panel p,.panel li{color:#c3cfdd}.panel ul,.panel ol{padding-left:20px}
-    .signal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.signal{padding:13px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025)}.signal strong{display:block;margin-bottom:3px}
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.11;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+      background-size:34px 34px;
+      mask-image:linear-gradient(#000,transparent 84%);
+    }
 
-    /* DIAGNOSTIC */
-    .diagnostic{padding:22px;border:1px solid rgba(66,211,255,.22);border-radius:16px;background:linear-gradient(180deg,rgba(15,38,63,.9),rgba(8,20,34,.92))}.message{margin:14px 0;padding:18px;border-radius:14px;background:#f7f9fc;color:#182234;box-shadow:0 12px 22px rgba(0,0,0,.18)}.fake-link{display:inline-block;padding:3px 6px;border-radius:6px;background:#e7ebf2;color:#38445a;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.choice{padding:12px;border-radius:11px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text);font-weight:800;cursor:pointer}.choice.selected{border-color:rgba(66,211,255,.45);background:rgba(66,211,255,.08)}
-    .feedback{display:none;margin-top:14px;padding:14px;border:1px solid var(--border);border-radius:13px}.feedback.show{display:block}.feedback.good{background:rgba(49,208,124,.07);border-color:rgba(49,208,124,.24)}.feedback.warn{background:rgba(255,201,90,.07);border-color:rgba(255,201,90,.23)}
+    a{
+      color:#91dcff;
+    }
 
-    /* CASE STUDY */
-    .case{overflow:hidden;margin-bottom:15px}.case-head{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:17px 19px;border-bottom:1px solid var(--border)}.case-head h3{margin:0}.case-meta{color:var(--muted);font-size:.82rem}.case-body{padding:0 18px 19px}.case-label{display:block;font-weight:800;margin-top:3px}.evidence{display:none;margin-top:14px}.evidence.show{display:block}.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}.evidence-item{display:flex;gap:8px;align-items:flex-start;padding:10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025)}.evidence-item input{margin-top:6px}.textarea{width:100%;min-height:94px;resize:vertical;margin-top:11px;padding:11px 12px;color:var(--text);background:#071321;border:1px solid var(--border);border-radius:11px;outline:none}.textarea:focus{border-color:rgba(66,211,255,.45);box-shadow:0 0 0 3px rgba(66,211,255,.07)}
+    .container{
+      width:min(var(--max),calc(100% - 32px));
+      margin:auto;
+    }
 
-    /* FINAL */
-    .final-card{padding:30px;margin:24px 0 10px;border-color:rgba(124,92,255,.25)}.criteria{display:grid;gap:8px;margin-top:12px}.criteria div{display:flex;gap:9px;padding:10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025)}.final-grid{display:grid;grid-template-columns:1fr 1fr;gap:19px}.final-result{display:none;margin-top:19px;padding:17px;border-radius:14px;border:1px solid var(--border)}.final-result.show{display:block}.final-result.good{background:rgba(49,208,124,.07);border-color:rgba(49,208,124,.24)}.final-result.warn{background:rgba(255,201,90,.07);border-color:rgba(255,201,90,.22)}
+    button,
+    input,
+    textarea{
+      font:inherit;
+    }
 
-    .reflection-card{padding:27px;margin:20px 0 35px}.reflection-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.completion{display:none;margin-top:18px;padding:18px;text-align:center;border-radius:15px;background:linear-gradient(135deg,rgba(99,230,190,.10),rgba(66,211,255,.09));border:1px solid rgba(99,230,190,.23)}.completion.show{display:block}.seal{width:72px;height:72px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--primary));color:#06141d;font-size:1.7rem;font-weight:900}
+    :focus-visible{
+      outline:3px solid rgba(66,211,255,.65);
+      outline-offset:3px;
+    }
 
-    footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--muted);font-size:.87rem}.footer-grid{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    /* =========================
+       BARRA DE NAVEGACIÓN
+    ========================= */
 
-    @media(max-width:1050px){.hero-grid,.two,.final-grid,.reflection-grid{grid-template-columns:1fr}.micro-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:720px){.navlinks{display:none}.hero{padding-top:40px}.hero-card,.progress-card,.lesson,.final-card,.reflection-card{padding:22px}.micro-grid,.signal-grid,.evidence-grid,.choices{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:7px}.case-head{align-items:flex-start;flex-direction:column}h1{font-size:2.6rem}}
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(5,13,25,.84);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+
+    .nav{
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:850;
+    }
+
+    .brandmark{
+      width:42px;
+      height:42px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--primary),var(--primary2));
+      color:#04101a;
+      box-shadow:0 10px 28px rgba(66,211,255,.18);
+    }
+
+    .navlinks{
+      display:flex;
+      gap:4px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .navlinks a{
+      text-decoration:none;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:10px;
+      font-size:.89rem;
+    }
+
+    .navlinks a:hover,
+    .navlinks a.active{
+      background:rgba(66,211,255,.08);
+      color:var(--text);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero{
+      padding:68px 0 32px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.28fr .72fr;
+      gap:22px;
+    }
+
+    .hero-card,
+    .progress-card,
+    .section-card,
+    .lesson,
+    .case,
+    .final-card,
+    .reflection-card{
+      background:rgba(14,33,56,.9);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+    }
+
+    .hero-card{
+      padding:42px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card:after{
+      content:"";
+      position:absolute;
+      width:330px;
+      height:330px;
+      right:-150px;
+      top:-160px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(66,211,255,.22),transparent 68%);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid rgba(66,211,255,.22);
+      background:rgba(66,211,255,.07);
+      color:#b8edff;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.76rem;
+      font-weight:800;
+    }
+
+    h1{
+      font-size:clamp(2.4rem,5vw,4.35rem);
+      line-height:1.02;
+      letter-spacing:-.05em;
+      margin:19px 0 14px;
+    }
+
+    .hero-sub{
+      font-size:1.28rem;
+      color:#dff1ff;
+      margin:0 0 14px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:.93rem;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .btn{
+      border:0;
+      border-radius:12px;
+      padding:12px 16px;
+      font-weight:800;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
+      transition:.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .primary{
+      background:linear-gradient(135deg,var(--primary),#7de2ff);
+      color:#03111a;
+    }
+
+    .secondary{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      color:var(--text);
+    }
+
+    .success{
+      background:linear-gradient(135deg,var(--success),#5be59b);
+      color:#04150c;
+    }
+
+    .warningbtn{
+      background:linear-gradient(135deg,var(--warning),#ffe28b);
+      color:#231900;
+    }
+
+    .progress-card{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .progress-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:10px;
+    }
+
+    .progress-top strong{
+      font-size:2.25rem;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:5px 9px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      color:#c9d7e7;
+      font-size:.76rem;
+      font-weight:750;
+    }
+
+    .track{
+      height:11px;
+      background:#07121f;
+      border:1px solid var(--border);
+      border-radius:999px;
+      overflow:hidden;
+      margin:14px 0 9px;
+    }
+
+    .bar{
+      width:0;
+      height:100%;
+      background:linear-gradient(90deg,var(--primary),var(--primary2));
+      border-radius:inherit;
+      transition:width .35s ease;
+    }
+
+    .callout{
+      padding:15px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      margin-top:15px;
+    }
+
+    .info{
+      background:rgba(66,211,255,.055);
+    }
+
+    .successbox{
+      background:rgba(49,208,124,.06);
+    }
+
+    .warningbox{
+      background:rgba(255,201,90,.06);
+    }
+
+    .dangerbox{
+      background:rgba(255,101,125,.07);
+    }
+
+    /* =========================
+       SECCIONES
+    ========================= */
+
+    section{
+      padding:24px 0 12px;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:18px;
+      margin-bottom:17px;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-size:1.8rem;
+    }
+
+    .section-head p{
+      margin:6px 0 0;
+      color:var(--muted);
+      max-width:810px;
+    }
+
+    .micro-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:13px;
+    }
+
+    .micro-card{
+      padding:19px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:rgba(8,23,40,.72);
+      transition:.18s ease;
+    }
+
+    .micro-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(66,211,255,.25);
+    }
+
+    .micro-icon{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      background:rgba(66,211,255,.08);
+      border:1px solid rgba(66,211,255,.12);
+      margin-bottom:12px;
+    }
+
+    .micro-card h3{
+      margin:0 0 6px;
+    }
+
+    .micro-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    /* =========================
+       CONTENIDO EDUCATIVO
+    ========================= */
+
+    .lesson{
+      padding:28px;
+    }
+
+    .two{
+      display:grid;
+      grid-template-columns:1.22fr .78fr;
+      gap:19px;
+    }
+
+    .panel{
+      background:rgba(7,17,30,.5);
+      border:1px solid var(--border);
+      border-radius:15px;
+      padding:20px;
+    }
+
+    .panel h3,
+    .panel h4{
+      margin-top:0;
+    }
+
+    .panel h4{
+      margin-bottom:6px;
+      color:#dff0ff;
+    }
+
+    .panel p,
+    .panel li{
+      color:#c3cfdd;
+    }
+
+    .panel ul,
+    .panel ol{
+      padding-left:20px;
+    }
+
+    .signal-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+
+    .signal{
+      padding:13px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:rgba(255,255,255,.025);
+    }
+
+    .signal strong{
+      display:block;
+      margin-bottom:3px;
+    }
+
+    /* =========================
+       DIAGNÓSTICO
+    ========================= */
+
+    .diagnostic{
+      padding:22px;
+      border:1px solid rgba(66,211,255,.22);
+      border-radius:16px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(15,38,63,.9),
+          rgba(8,20,34,.92)
+        );
+    }
+
+    .message{
+      margin:14px 0;
+      padding:18px;
+      border-radius:14px;
+      background:#f7f9fc;
+      color:#182234;
+      box-shadow:0 12px 22px rgba(0,0,0,.18);
+    }
+
+    .fake-link{
+      display:inline-block;
+      padding:3px 6px;
+      border-radius:6px;
+      background:#e7ebf2;
+      color:#38445a;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:.88rem;
+    }
+
+    .choices{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+
+    .choice{
+      padding:12px;
+      border-radius:11px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:800;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .choice:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.055);
+    }
+
+    .choice.selected{
+      border-color:rgba(66,211,255,.45);
+      background:rgba(66,211,255,.08);
+      box-shadow:0 0 0 2px rgba(66,211,255,.06);
+    }
+
+    .feedback{
+      display:none;
+      margin-top:14px;
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius:13px;
+    }
+
+    .feedback.show{
+      display:block;
+    }
+
+    .feedback.good{
+      background:rgba(49,208,124,.07);
+      border-color:rgba(49,208,124,.24);
+    }
+
+    .feedback.warn{
+      background:rgba(255,201,90,.07);
+      border-color:rgba(255,201,90,.23);
+    }
+
+    /* =========================
+       ESTUDIO DE CASOS
+    ========================= */
+
+    .case{
+      overflow:hidden;
+      margin-bottom:15px;
+    }
+
+    .case-head{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      padding:17px 19px;
+      border-bottom:1px solid var(--border);
+    }
+
+    .case-head h3{
+      margin:0;
+    }
+
+    .case-meta{
+      color:var(--muted);
+      font-size:.82rem;
+    }
+
+    .case-body{
+      padding:0 18px 19px;
+    }
+
+    .case-label{
+      display:block;
+      font-weight:800;
+      margin-top:3px;
+    }
+
+    .evidence{
+      display:none;
+      margin-top:14px;
+    }
+
+    .evidence.show{
+      display:block;
+    }
+
+    .evidence-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:9px;
+      margin-top:10px;
+    }
+
+    .evidence-item{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      padding:10px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:rgba(255,255,255,.025);
+    }
+
+    .evidence-item input{
+      margin-top:6px;
+    }
+
+    .textarea{
+      width:100%;
+      min-height:94px;
+      resize:vertical;
+      margin-top:11px;
+      padding:11px 12px;
+      color:var(--text);
+      background:#071321;
+      border:1px solid var(--border);
+      border-radius:11px;
+      outline:none;
+    }
+
+    .textarea:focus{
+      border-color:rgba(66,211,255,.45);
+      box-shadow:0 0 0 3px rgba(66,211,255,.07);
+    }
+
+    /* =========================
+       EVALUACIÓN FINAL
+    ========================= */
+
+    .final-card{
+      padding:30px;
+      margin:24px 0 10px;
+      border-color:rgba(124,92,255,.25);
+    }
+
+    .criteria{
+      display:grid;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .criteria div{
+      display:flex;
+      gap:9px;
+      padding:10px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:rgba(255,255,255,.025);
+    }
+
+    .final-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:19px;
+    }
+
+    .final-result{
+      display:none;
+      margin-top:19px;
+      padding:17px;
+      border-radius:14px;
+      border:1px solid var(--border);
+    }
+
+    .final-result.show{
+      display:block;
+    }
+
+    .final-result.good{
+      background:rgba(49,208,124,.07);
+      border-color:rgba(49,208,124,.24);
+    }
+
+    .final-result.warn{
+      background:rgba(255,201,90,.07);
+      border-color:rgba(255,201,90,.22);
+    }
+
+    /* =========================
+       REFLEXIÓN
+    ========================= */
+
+    .reflection-card{
+      padding:27px;
+      margin:20px 0 35px;
+    }
+
+    .reflection-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+    }
+
+    .completion{
+      display:none;
+      margin-top:18px;
+      padding:18px;
+      text-align:center;
+      border-radius:15px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(99,230,190,.10),
+          rgba(66,211,255,.09)
+        );
+      border:1px solid rgba(99,230,190,.23);
+    }
+
+    .completion.show{
+      display:block;
+    }
+
+    .seal{
+      width:72px;
+      height:72px;
+      margin:0 auto 12px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--primary));
+      color:#06141d;
+      font-size:1.7rem;
+      font-weight:900;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:26px 0 40px;
+      color:var(--muted);
+      font-size:.87rem;
+    }
+
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media(max-width:1050px){
+
+      .hero-grid,
+      .two,
+      .final-grid,
+      .reflection-grid{
+        grid-template-columns:1fr;
+      }
+
+      .micro-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+    }
+
+    @media(max-width:720px){
+
+      .navlinks{
+        display:none;
+      }
+
+      .hero{
+        padding-top:40px;
+      }
+
+      .hero-card,
+      .progress-card,
+      .lesson,
+      .final-card,
+      .reflection-card{
+        padding:22px;
+      }
+
+      .micro-grid,
+      .signal-grid,
+      .evidence-grid,
+      .choices{
+        grid-template-columns:1fr;
+      }
+
+      .section-head{
+        display:block;
+      }
+
+      .section-head p{
+        margin-top:7px;
+      }
+
+      .case-head{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      h1{
+        font-size:2.6rem;
+      }
+
+    }
+
   </style>
 </head>
+
 <body>
 
+  <!-- =========================
+       NAVEGACIÓN
+  ========================= -->
+
   <div class="topbar">
+
     <div class="container nav">
-      <a class="brand" href="#inicio" aria-label="EDUFLOW inicio">
-        <span class="brandmark">🧠</span><span>EDUFLOW</span>
+
+      <a
+        class="brand"
+        href="#inicio"
+        aria-label="EDUFLOW inicio">
+
+        <span class="brandmark">🧠</span>
+
+        <span>EDUFLOW</span>
+
       </a>
-      <nav class="navlinks" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a>
-        <a href="#diagnostico">Diagnóstico</a>
-        <a href="#microlearning">Microlearning</a>
-        <a href="#casos">Casos</a>
-        <a href="#evaluacion">Evaluación</a>
-        <a href="#cierre">Cierre</a>
+
+      <nav
+        class="navlinks"
+        aria-label="Navegación principal">
+
+        <a href="#inicio">
+          Inicio
+        </a>
+
+        <a href="#diagnostico">
+          Diagnóstico
+        </a>
+
+        <a href="#microlearning">
+          Microlearning
+        </a>
+
+        <a href="#casos">
+          Casos
+        </a>
+
+        <a href="#evaluacion">
+          Evaluación
+        </a>
+
+        <a href="#cierre">
+          Cierre
+        </a>
+
       </nav>
+
     </div>
+
   </div>
 
-  <header id="inicio" class="hero">
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <header
+    id="inicio"
+    class="hero">
+
     <div class="container hero-grid">
+
       <section class="hero-card">
-        <span class="eyebrow">🎓 Educación superior · 10–15 minutos</span>
-        <h1>EDUFLOW</h1>
-        <p class="hero-sub">Microlearning interactivo para la identificación del phishing.</p>
-        <p class="muted" style="font-size:1.04rem;max-width:760px">
-          Una experiencia Web autogestionada para estudiantes universitarios de primer año.
-          Analiza mensajes digitales, reconoce señales de riesgo y aprende a justificar decisiones seguras
-          antes de responder, hacer clic, descargar archivos o compartir información.
+
+        <span class="eyebrow">
+          🎓 Educación superior · 10–15 minutos
+        </span>
+
+        <h1>
+          EDUFLOW
+        </h1>
+
+        <p class="hero-sub">
+          Microlearning interactivo para la identificación del phishing.
         </p>
+
+        <p
+          class="muted"
+          style="font-size:1.04rem;max-width:760px">
+
+          Una experiencia Web autogestionada para estudiantes
+          universitarios de primer año.
+
+          Analiza mensajes digitales, reconoce señales de riesgo
+          y aprende a justificar decisiones seguras antes de responder,
+          hacer clic, descargar archivos o compartir información.
+
+        </p>
+
         <div class="actions">
-          <a class="btn primary" href="#diagnostico">🚀 Iniciar experiencia</a>
-          <a class="btn secondary" href="#microlearning">📖 Ver contenido</a>
+
+          <a
+            class="btn primary"
+            href="#diagnostico">
+
+            🚀 Iniciar experiencia
+
+          </a>
+
+          <a
+            class="btn secondary"
+            href="#microlearning">
+
+            📖 Ver contenido
+
+          </a>
+
         </div>
+
         <div class="callout info">
-          <strong>Herramienta Web de Nueva Generación:</strong>
-          Google AI Studio se utiliza para construir y prototipar EDUFLOW. El estudiante interactúa con la aplicación
-          Web y no necesita utilizar Google AI Studio ni programar.
+
+          <strong>
+            Herramienta Web de Nueva Generación:
+          </strong>
+
+          Google AI Studio se utiliza para construir y prototipar EDUFLOW.
+
+          El estudiante interactúa con la aplicación Web y no necesita
+          utilizar Google AI Studio ni programar.
+
         </div>
+
       </section>
 
+
+      <!-- PROGRESO -->
+
       <aside class="progress-card">
+
         <div class="progress-top">
-          <div><div class="muted">Progreso de la experiencia</div><strong id="progressPercent">0%</strong></div>
-          <span class="pill" id="progressLabel">0 de 4 etapas</span>
+
+          <div>
+
+            <div class="muted">
+              Progreso de la experiencia
+            </div>
+
+            <strong id="progressPercent">
+              0%
+            </strong>
+
+          </div>
+
+          <span
+            class="pill"
+            id="progressLabel">
+
+            0 de 4 etapas
+
+          </span>
+
         </div>
-        <div class="track"><div class="bar" id="progressBar"></div></div>
-        <p class="muted" style="margin:0">Completa diagnóstico, análisis de casos y evaluación final para demostrar el resultado de aprendizaje.</p>
+
+        <div class="track">
+
+          <div
+            class="bar"
+            id="progressBar">
+          </div>
+
+        </div>
+
+        <p
+          class="muted"
+          style="margin:0">
+
+          Completa diagnóstico, análisis de casos y evaluación final
+          para demostrar el resultado de aprendizaje.
+
+        </p>
+
         <div class="callout successbox">
-          <strong>🎯 Resultado de aprendizaje</strong>
-          <p class="muted" style="margin:6px 0 0">Identificar señales de phishing y justificar una decisión mediante al menos dos indicadores de riesgo observables.</p>
+
+          <strong>
+            🎯 Resultado de aprendizaje
+          </strong>
+
+          <p
+            class="muted"
+            style="margin:6px 0 0">
+
+            Identificar señales de phishing y justificar una decisión
+            mediante al menos dos indicadores de riesgo observables.
+
+          </p>
+
         </div>
+
       </aside>
+
     </div>
+
   </header>
+
 
   <main class="container">
 
+
+    <!-- =========================
+         RUTA
+    ========================= -->
+
     <section class="section">
-      <div class="section-head"><div><h2>Ruta de aprendizaje</h2><p>Microlearning secuenciado con participación activa, estudio de casos y evaluación formativa.</p></div></div>
+
+      <div class="section-head">
+
+        <div>
+
+          <h2>
+            Ruta de aprendizaje
+          </h2>
+
+          <p>
+            Microlearning secuenciado con participación activa,
+            estudio de casos y evaluación formativa.
+          </p>
+
+        </div>
+
+      </div>
+
+
       <div class="micro-grid">
-        <article class="micro-card"><div class="micro-icon">🔎</div><h3>01 · Activar</h3><p>Analiza un mensaje simulado y activa conocimientos previos.</p><span class="pill">Diagnóstico</span></article>
-        <article class="micro-card"><div class="micro-icon">📖</div><h3>02 · Reconocer</h3><p>Aprende qué es phishing y cuáles son sus principales señales.</p><span class="pill">Micro-unidad 1</span></article>
-        <article class="micro-card"><div class="micro-icon">🧩</div><h3>03 · Analizar</h3><p>Clasifica casos y sustenta tus decisiones con evidencia.</p><span class="pill">Micro-unidad 2</span></article>
-        <article class="micro-card"><div class="micro-icon">🎯</div><h3>04 · Transferir</h3><p>Resuelve nuevos escenarios y reflexiona sobre decisiones seguras.</p><span class="pill">Evaluación</span></article>
+
+        <article class="micro-card">
+
+          <div class="micro-icon">
+            🔎
+          </div>
+
+          <h3>
+            01 · Activar
+          </h3>
+
+          <p>
+            Analiza un mensaje simulado y activa conocimientos previos.
+          </p>
+
+          <span class="pill">
+            Diagnóstico
+          </span>
+
+        </article>
+
+
+        <article class="micro-card">
+
+          <div class="micro-icon">
+            📖
+          </div>
+
+          <h3>
+            02 · Reconocer
+          </h3>
+
+          <p>
+            Aprende qué es phishing y cuáles son sus principales señales.
+          </p>
+
+          <span class="pill">
+            Micro-unidad 1
+          </span>
+
+        </article>
+
+
+        <article class="micro-card">
+
+          <div class="micro-icon">
+            🧩
+          </div>
+
+          <h3>
+            03 · Analizar
+          </h3>
+
+          <p>
+            Clasifica casos y sustenta tus decisiones con evidencia.
+          </p>
+
+          <span class="pill">
+            Micro-unidad 2
+          </span>
+
+        </article>
+
+
+        <article class="micro-card">
+
+          <div class="micro-icon">
+            🎯
+          </div>
+
+          <h3>
+            04 · Transferir
+          </h3>
+
+          <p>
+            Resuelve nuevos escenarios y reflexiona sobre decisiones seguras.
+          </p>
+
+          <span class="pill">
+            Evaluación
+          </span>
+
+        </article>
+
       </div>
+
     </section>
 
-    <section id="diagnostico" class="section">
-      <div class="section-head"><div><h2>🔎 Inicio: activa tus conocimientos previos</h2><p>Observa el siguiente mensaje y decide qué nivel de confianza te genera. La actividad no solicita datos reales.</p></div></div>
+
+    <!-- =========================
+         DIAGNÓSTICO
+    ========================= -->
+
+    <section
+      id="diagnostico"
+      class="section">
+
+      <div class="section-head">
+
+        <div>
+
+          <h2>
+            🔎 Inicio: activa tus conocimientos previos
+          </h2>
+
+          <p>
+
+            Observa el siguiente mensaje y realiza una primera
+            valoración antes de estudiar los conceptos.
+
+            No se solicitan datos reales.
+
+          </p>
+
+        </div>
+
+      </div>
+
+
       <div class="diagnostic">
-        <p><strong>Situación:</strong> recibes este mensaje en tu correo universitario.</p>
+
+        <p>
+
+          <strong>
+            Situación:
+          </strong>
+
+          recibes este mensaje en tu correo universitario.
+
+        </p>
+
+
+        <!-- MENSAJE SIMULADO -->
+
         <div class="message">
-          <strong>Asunto:</strong> Acción requerida: verifique su cuenta universitaria<br>
-          <strong>Remitente:</strong> soporte-universidad@seguridad-cuenta.net<br><br>
-          “Su cuenta será suspendida hoy. Verifique inmediatamente su identidad mediante el siguiente enlace. Tiene 10 minutos para completar el proceso.”<br><br>
-          <span class="fake-link">https://verificacion-estudiantes.example</span>
+
+          <strong>
+            Asunto:
+          </strong>
+
+          Acción requerida: verifique su cuenta universitaria
+
+          <br>
+
+          <strong>
+            Remitente:
+          </strong>
+
+          soporte-universidad@seguridad-cuenta.net
+
+          <br><br>
+
+          “Su cuenta será suspendida hoy.
+
+          Verifique inmediatamente su identidad mediante el siguiente
+          enlace.
+
+          Tiene 10 minutos para completar el proceso.”
+
+          <br><br>
+
+          <span class="fake-link">
+            https://verificacion-estudiantes.example
+          </span>
+
         </div>
-        <p><strong>¿Qué nivel de confianza te genera?</strong></p>
+
+
+        <!-- INSTRUCCIÓN PRINCIPAL -->
+
+        <div
+          class="callout info"
+          style="margin-top:20px">
+
+          <h3 style="margin:0 0 7px">
+
+            🧭 ¿Cómo debes responder?
+
+          </h3>
+
+          <p style="margin:0">
+
+            No intentes adivinar.
+
+            Primero <strong>observa las señales</strong> del mensaje,
+            considera el contexto y luego elige
+            <strong>una sola opción</strong>.
+
+            El propósito de esta actividad es que aprendas a tomar
+            una decisión segura basándote en evidencia observable.
+
+          </p>
+
+        </div>
+
+
+        <!-- EXPLICACIÓN DE LAS TRES OPCIONES -->
+
+        <div
+          class="signal-grid"
+          style="margin-top:14px">
+
+
+          <!-- LEGÍTIMO -->
+
+          <div class="signal">
+
+            <strong>
+              ✅ Parece legítimo
+            </strong>
+
+            <span class="muted">
+
+              Selecciona esta opción cuando la comunicación sea coherente
+              con el contexto, el remitente sea razonablemente verificable,
+              no presente señales importantes de engaño y no solicite
+              información sensible de manera inusual.
+
+            </span>
+
+          </div>
+
+
+          <!-- DUDAS -->
+
+          <div class="signal">
+
+            <strong>
+              ⚠️ Me genera dudas
+            </strong>
+
+            <span class="muted">
+
+              Selecciona esta opción cuando encuentres algún elemento
+              que no puedas confirmar o una inconsistencia que requiera
+              comprobación.
+
+              En este caso,
+              <strong>no actúes todavía</strong>:
+              detente y verifica mediante un canal oficial.
+
+            </span>
+
+          </div>
+
+
+          <!-- PHISHING -->
+
+          <div class="signal">
+
+            <strong>
+              🚨 Posible phishing
+            </strong>
+
+            <span class="muted">
+
+              Selecciona esta opción cuando observes varias señales
+              claras de riesgo, por ejemplo:
+              dominio sospechoso, urgencia, amenazas,
+              enlace inesperado o solicitud de credenciales.
+
+            </span>
+
+          </div>
+
+
+          <!-- QUÉ BUSCAR -->
+
+          <div class="signal">
+
+            <strong>
+              🎯 ¿Qué debes buscar?
+            </strong>
+
+            <span class="muted">
+
+              Presta atención al remitente, dominio, enlace,
+              urgencia, lenguaje manipulador, archivos adjuntos
+              y solicitudes de información sensible.
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- REGLA EDUFLOW -->
+
+        <div
+          class="callout warningbox"
+          style="margin-top:14px">
+
+          <strong>
+            💡 Regla EDUFLOW:
+          </strong>
+
+          <span>
+
+            Observa →
+            identifica señales →
+            evalúa el contexto →
+            decide →
+            verifica antes de actuar.
+
+          </span>
+
+        </div>
+
+
+        <!-- PREGUNTA -->
+
+        <p
+          style="margin-top:22px">
+
+          <strong>
+
+            Ahora analiza el mensaje anterior y selecciona
+            la opción que mejor representa tu evaluación.
+
+          </strong>
+
+        </p>
+
+
+        <!-- OPCIONES -->
+
         <div class="choices">
-          <button class="choice" onclick="diagnose('legitimo',this)">✅ Parece legítimo</button>
-          <button class="choice" onclick="diagnose('sospechoso',this)">⚠️ Me genera dudas</button>
-          <button class="choice" onclick="diagnose('phishing',this)">🚨 Posible phishing</button>
+
+          <button
+            class="choice"
+            onclick="diagnose('legitimo',this)">
+
+            ✅ Parece legítimo
+
+          </button>
+
+
+          <button
+            class="choice"
+            onclick="diagnose('sospechoso',this)">
+
+            ⚠️ Me genera dudas
+
+          </button>
+
+
+          <button
+            class="choice"
+            onclick="diagnose('phishing',this)">
+
+            🚨 Posible phishing
+
+          </button>
+
         </div>
-        <div id="diagnosticFeedback" class="feedback"></div>
-        <button class="btn primary" style="margin-top:15px" onclick="completeDiagnostic()">Continuar →</button>
+
+
+        <!-- RETROALIMENTACIÓN -->
+
+        <div
+          id="diagnosticFeedback"
+          class="feedback">
+        </div>
+
+
+        <!-- CONTINUAR -->
+
+        <button
+          id="diagnosticContinue"
+          class="btn primary"
+          style="margin-top:15px"
+          onclick="completeDiagnostic()">
+
+          Continuar →
+
+        </button>
+
       </div>
+
     </section>
 
-    <section id="microlearning" class="section">
-      <div class="section-head"><div><h2>📖 Micro-unidad 1: reconocer el phishing</h2><p>Contenido breve, contextualizado y centrado en indicadores observables.</p></div><span class="pill">Microlearning</span></div>
+
+    <!-- =========================
+         MICRO-UNIDAD 1
+    ========================= -->
+
+    <section
+      id="microlearning"
+      class="section">
+
+      <div class="section-head">
+
+        <div>
+
+          <h2>
+            📖 Micro-unidad 1: reconocer el phishing
+          </h2>
+
+          <p>
+
+            Contenido breve, contextualizado y centrado en
+            indicadores observables.
+
+          </p>
+
+        </div>
+
+        <span class="pill">
+          Microlearning
+        </span>
+
+      </div>
+
+
       <div class="lesson">
+
         <div class="two">
+
+
+          <!-- CONTENIDO -->
+
           <article class="panel">
-            <h3>¿Qué es el phishing?</h3>
+
+            <h3>
+              ¿Qué es el phishing?
+            </h3>
+
             <p>
-              El phishing es una forma de engaño digital en la que una comunicación pretende aparentar legitimidad
-              para conseguir que una persona revele información, haga clic en un enlace, abra un archivo o realice
-              otra acción que favorezca al atacante.
+
+              El phishing es una forma de engaño digital en la que
+              una comunicación pretende aparentar legitimidad para
+              conseguir que una persona revele información, haga clic
+              en un enlace, abra un archivo o realice otra acción
+              que favorezca al atacante.
+
             </p>
-            <div class="callout info"><strong>Regla EDUFLOW:</strong> una decisión segura se basa en varias señales y en la verificación del contexto, no en una sola impresión.</div>
-            <h4 style="margin-top:20px">Seis señales clave</h4>
+
+
+            <div class="callout info">
+
+              <strong>
+                Regla EDUFLOW:
+              </strong>
+
+              una decisión segura se basa en varias señales
+              y en la verificación del contexto,
+              no en una sola impresión.
+
+            </div>
+
+
+            <h4 style="margin-top:20px">
+              Seis señales clave
+            </h4>
+
+
             <div class="signal-grid">
-              <div class="signal"><strong>👤 Remitente</strong><span class="muted">El nombre puede parecer conocido, pero el dominio real no coincide.</span></div>
-              <div class="signal"><strong>🔗 Enlaces</strong><span class="muted">El destino puede no corresponder con el sitio oficial.</span></div>
-              <div class="signal"><strong>⏰ Urgencia</strong><span class="muted">Se intenta impedir que analices con calma.</span></div>
-              <div class="signal"><strong>🎭 Manipulación</strong><span class="muted">Miedo, autoridad, premio o presión para influir.</span></div>
-              <div class="signal"><strong>📎 Archivos</strong><span class="muted">Adjuntos inesperados aumentan el riesgo.</span></div>
-              <div class="signal"><strong>🔐 Información sensible</strong><span class="muted">Contraseñas, códigos o datos financieros solicitados por canales inusuales.</span></div>
+
+
+              <div class="signal">
+
+                <strong>
+                  👤 Remitente
+                </strong>
+
+                <span class="muted">
+
+                  El nombre puede parecer conocido,
+                  pero el dominio real puede no coincidir.
+
+                </span>
+
+              </div>
+
+
+              <div class="signal">
+
+                <strong>
+                  🔗 Enlaces
+                </strong>
+
+                <span class="muted">
+
+                  El destino puede no corresponder
+                  con el sitio oficial.
+
+                </span>
+
+              </div>
+
+
+              <div class="signal">
+
+                <strong>
+                  ⏰ Urgencia
+                </strong>
+
+                <span class="muted">
+
+                  Se intenta impedir que analices
+                  con calma.
+
+                </span>
+
+              </div>
+
+
+              <div class="signal">
+
+                <strong>
+                  🎭 Manipulación
+                </strong>
+
+                <span class="muted">
+
+                  Miedo, autoridad, premio o presión
+                  para influir en tu decisión.
+
+                </span>
+
+              </div>
+
+
+              <div class="signal">
+
+                <strong>
+                  📎 Archivos
+                </strong>
+
+                <span class="muted">
+
+                  Los adjuntos inesperados aumentan el riesgo.
+
+                </span>
+
+              </div>
+
+
+              <div class="signal">
+
+                <strong>
+                  🔐 Información sensible
+                </strong>
+
+                <span class="muted">
+
+                  Contraseñas, códigos o datos financieros
+                  solicitados por canales inusuales.
+
+                </span>
+
+              </div>
+
+
             </div>
+
           </article>
+
+
+          <!-- PREGUNTAS GUÍA -->
+
           <aside class="panel">
-            <h3>🧠 Antes de actuar, pregunta</h3>
+
+            <h3>
+              🧠 Antes de actuar, pregunta
+            </h3>
+
             <ol>
-              <li>¿Quién lo envía realmente?</li>
-              <li>¿Qué me pide hacer?</li>
-              <li>¿Por qué debo hacerlo ahora?</li>
-              <li>¿El enlace pertenece al sitio esperado?</li>
-              <li>¿Solicita información sensible?</li>
-              <li>¿Puedo verificarlo por otro canal?</li>
+
+              <li>
+                ¿Quién lo envía realmente?
+              </li>
+
+              <li>
+                ¿Qué me pide hacer?
+              </li>
+
+              <li>
+                ¿Por qué debo hacerlo ahora?
+              </li>
+
+              <li>
+                ¿El enlace pertenece al sitio esperado?
+              </li>
+
+              <li>
+                ¿Solicita información sensible?
+              </li>
+
+              <li>
+                ¿Puedo verificarlo por otro canal?
+              </li>
+
             </ol>
-            <div class="callout successbox"><strong>Secuencia segura:</strong> detenerse → observar → evaluar → verificar → actuar.</div>
-            <div class="callout warningbox"><strong>Recuerda:</strong> un logotipo, una firma profesional o un tono convincente no prueban por sí solos que una comunicación sea auténtica.</div>
+
+
+            <div class="callout successbox">
+
+              <strong>
+                Secuencia segura:
+              </strong>
+
+              detenerse →
+              observar →
+              evaluar →
+              verificar →
+              actuar.
+
+            </div>
+
+
+            <div class="callout warningbox">
+
+              <strong>
+                Recuerda:
+              </strong>
+
+              un logotipo, una firma profesional o un tono convincente
+              no prueban por sí solos que una comunicación sea auténtica.
+
+            </div>
+
           </aside>
+
         </div>
+
       </div>
+
     </section>
 
-    <section id="casos" class="section">
-      <div class="section-head"><div><h2>🧩 Micro-unidad 2: estudio de casos</h2><p>Clasifica cada comunicación y selecciona al menos dos evidencias que fundamenten tu decisión. Después escribe una breve justificación.</p></div><span class="pill">Participación activa</span></div>
 
-      <!-- CASE 1 -->
-      <article class="case" data-case="1">
-        <div class="case-head"><div><h3>Caso 1 · Cuenta universitaria</h3><div class="case-meta">Escenario académico</div></div><span class="pill">1 de 3</span></div>
-        <div class="message">
-          <strong>De:</strong> servicios-universidad@micuenta-segura.net<br>
-          <strong>Asunto:</strong> Último aviso: confirme sus credenciales<br><br>
-          Hemos detectado un acceso irregular. Su cuenta será bloqueada en 15 minutos si no confirma inmediatamente su contraseña.<br><br>
-          <span class="fake-link">https://verificacion-estudiantes.example</span>
+    <!-- =========================
+         MICRO-UNIDAD 2
+    ========================= -->
+
+    <section
+      id="casos"
+      class="section">
+
+      <div class="section-head">
+
+        <div>
+
+          <h2>
+            🧩 Micro-unidad 2: estudio de casos
+          </h2>
+
+          <p>
+
+            Clasifica cada comunicación y selecciona al menos dos
+            evidencias que fundamenten tu decisión.
+
+            Después escribe una breve justificación.
+
+          </p>
+
         </div>
-        <div class="case-body">
-          <span class="case-label">¿Cómo clasificarías la comunicación?</span>
-          <div class="choices" style="margin-top:10px">
-            <button class="choice" onclick="selectCase(1,'legitimo',this)">✅ Legítima</button>
-            <button class="choice" onclick="selectCase(1,'sospechoso',this)">⚠️ Sospechosa</button>
-            <button class="choice" onclick="selectCase(1,'phishing',this)">🚨 Posible phishing</button>
-          </div>
-          <div id="evidence1" class="evidence">
-            <span class="case-label">Selecciona al menos dos indicadores:</span>
-            <div class="evidence-grid">
-              <label class="evidence-item"><input type="checkbox" data-case="1" value="remitente"> Remitente/dominio sospechoso</label>
-              <label class="evidence-item"><input type="checkbox" data-case="1" value="urgencia"> Urgencia o amenaza</label>
-              <label class="evidence-item"><input type="checkbox" data-case="1" value="enlace"> Enlace inesperado</label>
-              <label class="evidence-item"><input type="checkbox" data-case="1" value="credenciales"> Solicitud de credenciales</label>
+
+        <span class="pill">
+          Participación activa
+        </span>
+
+      </div>
+
+
+      <!-- =========================
+           CASO 1
+      ========================= -->
+
+      <article
+        class="case"
+        data-case="1">
+
+        <div class="case-head">
+
+          <div>
+
+            <h3>
+              Caso 1 · Cuenta universitaria
+            </h3>
+
+            <div class="case-meta">
+              Escenario académico
             </div>
-            <textarea id="justification1" class="textarea" placeholder="Justifica tu decisión usando al menos dos indicadores observables."></textarea>
-            <button class="btn primary" style="margin-top:10px" onclick="evaluateCase(1)">🔍 Revisar decisión</button>
+
           </div>
-          <div id="feedback1" class="feedback"></div>
+
+          <span class="pill">
+            1 de 3
+          </span>
+
         </div>
+
+
+        <div class="message">
+
+          <strong>
+            De:
+          </strong>
+
+          servicios-universidad@micuenta-segura.net
+
+          <br>
+
+          <strong>
+            Asunto:
+          </strong>
+
+          Último aviso: confirme sus credenciales
+
+          <br><br>
+
+          Hemos detectado un acceso irregular.
+
+          Su cuenta será bloqueada en 15 minutos
+          si no confirma inmediatamente su contraseña.
+
+          <br><br>
+
+          <span class="fake-link">
+            https://verificacion-estudiantes.example
+          </span>
+
+        </div>
+
+
+        <div class="case-body">
+
+          <span class="case-label">
+            ¿Cómo clasificarías la comunicación?
+          </span>
+
+
+          <div
+            class="choices"
+            style="margin-top:10px">
+
+            <button
+              class="choice"
+              onclick="selectCase(1,'legitimo',this)">
+
+              ✅ Legítima
+
+            </button>
+
+
+            <button
+              class="choice"
+              onclick="selectCase(1,'sospechoso',this)">
+
+              ⚠️ Sospechosa
+
+            </button>
+
+
+            <button
+              class="choice"
+              onclick="selectCase(1,'phishing',this)">
+
+              🚨 Posible phishing
+
+            </button>
+
+          </div>
+
+
+          <div
+            id="evidence1"
+            class="evidence">
+
+            <span class="case-label">
+
+              Selecciona al menos dos indicadores:
+
+            </span>
+
+
+            <div class="evidence-grid">
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="1"
+                  value="remitente">
+
+                Remitente/dominio sospechoso
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="1"
+                  value="urgencia">
+
+                Urgencia o amenaza
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="1"
+                  value="enlace">
+
+                Enlace inesperado
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="1"
+                  value="credenciales">
+
+                Solicitud de credenciales
+
+              </label>
+
+            </div>
+
+
+            <textarea
+              id="justification1"
+              class="textarea"
+              placeholder="Justifica tu decisión usando al menos dos indicadores observables.">
+            </textarea>
+
+
+            <button
+              class="btn primary"
+              style="margin-top:10px"
+              onclick="evaluateCase(1)">
+
+              🔍 Revisar decisión
+
+            </button>
+
+          </div>
+
+
+          <div
+            id="feedback1"
+            class="feedback">
+          </div>
+
+        </div>
+
       </article>
 
-      <!-- CASE 2 -->
-      <article class="case" data-case="2">
-        <div class="case-head"><div><h3>Caso 2 · Biblioteca digital</h3><div class="case-meta">Escenario académico</div></div><span class="pill">2 de 3</span></div>
-        <div class="message">
-          <strong>De:</strong> biblioteca@universidad.edu<br>
-          <strong>Asunto:</strong> Renovación de préstamo<br><br>
-          Hola, estudiante:<br><br>
-          El préstamo del libro “Fundamentos de Redes” vence mañana. Puedes revisar los detalles desde el portal habitual de la biblioteca. Escribe manualmente la dirección conocida en tu navegador.<br>
-        </div>
-        <div class="case-body">
-          <span class="case-label">¿Cómo clasificarías la comunicación?</span>
-          <div class="choices" style="margin-top:10px">
-            <button class="choice" onclick="selectCase(2,'legitimo',this)">✅ Legítima</button>
-            <button class="choice" onclick="selectCase(2,'sospechoso',this)">⚠️ Sospechosa</button>
-            <button class="choice" onclick="selectCase(2,'phishing',this)">🚨 Posible phishing</button>
-          </div>
-          <div id="evidence2" class="evidence">
-            <span class="case-label">Selecciona los elementos que sustentan tu decisión:</span>
-            <div class="evidence-grid">
-              <label class="evidence-item"><input type="checkbox" data-case="2" value="remitente"> Remitente/dominio coherente</label>
-              <label class="evidence-item"><input type="checkbox" data-case="2" value="urgencia"> Urgencia o amenaza</label>
-              <label class="evidence-item"><input type="checkbox" data-case="2" value="enlace"> No solicita abrir un enlace inesperado</label>
-              <label class="evidence-item"><input type="checkbox" data-case="2" value="contexto"> Solicitud coherente con el contexto</label>
+
+      <!-- =========================
+           CASO 2
+      ========================= -->
+
+      <article
+        class="case"
+        data-case="2">
+
+        <div class="case-head">
+
+          <div>
+
+            <h3>
+              Caso 2 · Biblioteca digital
+            </h3>
+
+            <div class="case-meta">
+              Escenario académico
             </div>
-            <textarea id="justification2" class="textarea" placeholder="Explica por qué el contexto apoya o contradice tu decisión."></textarea>
-            <button class="btn primary" style="margin-top:10px" onclick="evaluateCase(2)">🔍 Revisar decisión</button>
+
           </div>
-          <div id="feedback2" class="feedback"></div>
+
+          <span class="pill">
+            2 de 3
+          </span>
+
         </div>
+
+
+        <div class="message">
+
+          <strong>
+            De:
+          </strong>
+
+          biblioteca@universidad.edu
+
+          <br>
+
+          <strong>
+            Asunto:
+          </strong>
+
+          Renovación de préstamo
+
+          <br><br>
+
+          Hola, estudiante:
+
+          <br><br>
+
+          El préstamo del libro “Fundamentos de Redes”
+          vence mañana.
+
+          Puedes revisar los detalles desde el portal habitual
+          de la biblioteca.
+
+          Escribe manualmente la dirección conocida
+          en tu navegador.
+
+        </div>
+
+
+        <div class="case-body">
+
+          <span class="case-label">
+            ¿Cómo clasificarías la comunicación?
+          </span>
+
+
+          <div
+            class="choices"
+            style="margin-top:10px">
+
+            <button
+              class="choice"
+              onclick="selectCase(2,'legitimo',this)">
+
+              ✅ Legítima
+
+            </button>
+
+
+            <button
+              class="choice"
+              onclick="selectCase(2,'sospechoso',this)">
+
+              ⚠️ Sospechosa
+
+            </button>
+
+
+            <button
+              class="choice"
+              onclick="selectCase(2,'phishing',this)">
+
+              🚨 Posible phishing
+
+            </button>
+
+          </div>
+
+
+          <div
+            id="evidence2"
+            class="evidence">
+
+            <span class="case-label">
+
+              Selecciona los elementos que sustentan tu decisión:
+
+            </span>
+
+
+            <div class="evidence-grid">
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="2"
+                  value="remitente">
+
+                Remitente/dominio coherente
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="2"
+                  value="urgencia">
+
+                Urgencia o amenaza
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="2"
+                  value="enlace">
+
+                No solicita abrir un enlace inesperado
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="2"
+                  value="contexto">
+
+                Solicitud coherente con el contexto
+
+              </label>
+
+            </div>
+
+
+            <textarea
+              id="justification2"
+              class="textarea"
+              placeholder="Explica por qué el contexto apoya o contradice tu decisión.">
+            </textarea>
+
+
+            <button
+              class="btn primary"
+              style="margin-top:10px"
+              onclick="evaluateCase(2)">
+
+              🔍 Revisar decisión
+
+            </button>
+
+          </div>
+
+
+          <div
+            id="feedback2"
+            class="feedback">
+          </div>
+
+        </div>
+
       </article>
 
-      <!-- CASE 3 -->
-      <article class="case" data-case="3">
-        <div class="case-head"><div><h3>Caso 3 · Servicio de almacenamiento</h3><div class="case-meta">Escenario de cuenta digital</div></div><span class="pill">3 de 3</span></div>
-        <div class="message">
-          <strong>De:</strong> no-reply@cloud-storage-support.com<br>
-          <strong>Asunto:</strong> Tu almacenamiento se eliminará hoy<br><br>
-          Hemos detectado actividad inusual. Para evitar la eliminación de sus archivos, descargue el documento adjunto y complete la verificación de su cuenta.<br><br>
-          <strong>Archivo:</strong> verifica_cuenta.zip
-        </div>
-        <div class="case-body">
-          <span class="case-label">¿Cómo clasificarías la comunicación?</span>
-          <div class="choices" style="margin-top:10px">
-            <button class="choice" onclick="selectCase(3,'legitimo',this)">✅ Legítima</button>
-            <button class="choice" onclick="selectCase(3,'sospechoso',this)">⚠️ Sospechosa</button>
-            <button class="choice" onclick="selectCase(3,'phishing',this)">🚨 Posible phishing</button>
-          </div>
-          <div id="evidence3" class="evidence">
-            <span class="case-label">Selecciona al menos dos indicadores:</span>
-            <div class="evidence-grid">
-              <label class="evidence-item"><input type="checkbox" data-case="3" value="remitente"> Remitente/dominio sospechoso</label>
-              <label class="evidence-item"><input type="checkbox" data-case="3" value="urgencia"> Amenaza o urgencia</label>
-              <label class="evidence-item"><input type="checkbox" data-case="3" value="archivo"> Archivo adjunto inesperado</label>
-              <label class="evidence-item"><input type="checkbox" data-case="3" value="verificacion"> Solicitud de verificación inusual</label>
+
+      <!-- =========================
+           CASO 3
+      ========================= -->
+
+      <article
+        class="case"
+        data-case="3">
+
+        <div class="case-head">
+
+          <div>
+
+            <h3>
+              Caso 3 · Servicio de almacenamiento
+            </h3>
+
+            <div class="case-meta">
+              Escenario de cuenta digital
             </div>
-            <textarea id="justification3" class="textarea" placeholder="Explica qué evidencias te llevaron a tu decisión."></textarea>
-            <button class="btn primary" style="margin-top:10px" onclick="evaluateCase(3)">🔍 Revisar decisión</button>
+
           </div>
-          <div id="feedback3" class="feedback"></div>
+
+          <span class="pill">
+            3 de 3
+          </span>
+
         </div>
+
+
+        <div class="message">
+
+          <strong>
+            De:
+          </strong>
+
+          no-reply@cloud-storage-support.com
+
+          <br>
+
+          <strong>
+            Asunto:
+          </strong>
+
+          Tu almacenamiento se eliminará hoy
+
+          <br><br>
+
+          Hemos detectado actividad inusual.
+
+          Para evitar la eliminación de sus archivos,
+          descargue el documento adjunto y complete
+          la verificación de su cuenta.
+
+          <br><br>
+
+          <strong>
+            Archivo:
+          </strong>
+
+          verifica_cuenta.zip
+
+        </div>
+
+
+        <div class="case-body">
+
+          <span class="case-label">
+            ¿Cómo clasificarías la comunicación?
+          </span>
+
+
+          <div
+            class="choices"
+            style="margin-top:10px">
+
+            <button
+              class="choice"
+              onclick="selectCase(3,'legitimo',this)">
+
+              ✅ Legítima
+
+            </button>
+
+
+            <button
+              class="choice"
+              onclick="selectCase(3,'sospechoso',this)">
+
+              ⚠️ Sospechosa
+
+            </button>
+
+
+            <button
+              class="choice"
+              onclick="selectCase(3,'phishing',this)">
+
+              🚨 Posible phishing
+
+            </button>
+
+          </div>
+
+
+          <div
+            id="evidence3"
+            class="evidence">
+
+            <span class="case-label">
+
+              Selecciona al menos dos indicadores:
+
+            </span>
+
+
+            <div class="evidence-grid">
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="3"
+                  value="remitente">
+
+                Remitente/dominio sospechoso
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="3"
+                  value="urgencia">
+
+                Amenaza o urgencia
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="3"
+                  value="archivo">
+
+                Archivo adjunto inesperado
+
+              </label>
+
+
+              <label class="evidence-item">
+
+                <input
+                  type="checkbox"
+                  data-case="3"
+                  value="verificacion">
+
+                Solicitud de verificación inusual
+
+              </label>
+
+            </div>
+
+
+            <textarea
+              id="justification3"
+              class="textarea"
+              placeholder="Explica qué evidencias te llevaron a tu decisión.">
+            </textarea>
+
+
+            <button
+              class="btn primary"
+              style="margin-top:10px"
+              onclick="evaluateCase(3)">
+
+              🔍 Revisar decisión
+
+            </button>
+
+          </div>
+
+
+          <div
+            id="feedback3"
+            class="feedback">
+          </div>
+
+        </div>
+
       </article>
 
-      <div class="callout info"><strong>💡 Clave:</strong> la evidencia importa. EDUFLOW busca que puedas decir <em>qué observaste</em> y <em>por qué eso cambia tu decisión</em>.</div>
+
+      <div class="callout info">
+
+        <strong>
+          💡 Clave:
+        </strong>
+
+        la evidencia importa.
+
+        EDUFLOW busca que puedas decir
+        <em>qué observaste</em>
+        y
+        <em>por qué eso cambia tu decisión</em>.
+
+      </div>
+
     </section>
+
+
+    <!-- =========================
+         MICRO-UNIDAD 3
+    ========================= -->
 
     <section class="section">
-      <div class="section-head"><div><h2>🛡️ Micro-unidad 3: decidir antes de actuar</h2><p>Aplica la lógica de análisis en comunicaciones de correo, SMS, mensajería y redes sociales.</p></div></div>
+
+      <div class="section-head">
+
+        <div>
+
+          <h2>
+            🛡️ Micro-unidad 3: decidir antes de actuar
+          </h2>
+
+          <p>
+
+            Aplica la lógica de análisis en comunicaciones de correo,
+            SMS, mensajería y redes sociales.
+
+          </p>
+
+        </div>
+
+      </div>
+
+
       <div class="lesson">
+
         <div class="two">
-          <article class="panel"><h3>Secuencia de decisión segura</h3><ol><li><strong>Detente:</strong> no respondas impulsivamente.</li><li><strong>Observa:</strong> revisa remitente, dominio, enlaces, archivos y lenguaje.</li><li><strong>Evalúa:</strong> identifica al menos dos señales y considera el contexto.</li><li><strong>Verifica:</strong> confirma mediante un canal oficial independiente.</li><li><strong>Actúa:</strong> solamente después de verificar.</li></ol></article>
-          <aside class="panel"><h3>🚫 Evita</h3><ul><li>Compartir contraseñas o códigos.</li><li>Descargar archivos inesperados.</li><li>Ingresar información sensible desde un enlace recibido inesperadamente.</li><li>Confiar solamente en logos o nombres visibles.</li></ul><div class="callout successbox"><strong>Transferencia:</strong> el mismo criterio puede aplicarse a diferentes canales digitales.</div></aside>
-        </div>
-      </div>
-    </section>
 
-    <section id="evaluacion" class="section">
-      <div class="final-card">
-        <div class="section-head"><div><h2>🎯 Evaluación final</h2><p>Demuestra el resultado de aprendizaje en escenarios nuevos. La evaluación valora identificación y justificación.</p></div><span class="pill">Evidencia de aprendizaje</span></div>
-        <div class="final-grid">
-          <div class="panel">
-            <h3>Criterios</h3>
-            <div class="criteria">
-              <div>1️⃣ <span>Identificar correctamente señales de phishing.</span></div>
-              <div>2️⃣ <span>Tomar una decisión coherente con la evidencia.</span></div>
-              <div>3️⃣ <span>Justificar con al menos dos indicadores observables.</span></div>
-              <div>4️⃣ <span>Aplicar el criterio a nuevos escenarios.</span></div>
+
+          <article class="panel">
+
+            <h3>
+              Secuencia de decisión segura
+            </h3>
+
+            <ol>
+
+              <li>
+
+                <strong>
+                  Detente:
+                </strong>
+
+                no respondas impulsivamente.
+
+              </li>
+
+
+              <li>
+
+                <strong>
+                  Observa:
+                </strong>
+
+                revisa remitente, dominio, enlaces, archivos y lenguaje.
+
+              </li>
+
+
+              <li>
+
+                <strong>
+                  Evalúa:
+                </strong>
+
+                identifica al menos dos señales y considera el contexto.
+
+              </li>
+
+
+              <li>
+
+                <strong>
+                  Verifica:
+                </strong>
+
+                confirma mediante un canal oficial independiente.
+
+              </li>
+
+
+              <li>
+
+                <strong>
+                  Actúa:
+                </strong>
+
+                solamente después de verificar.
+
+              </li>
+
+            </ol>
+
+          </article>
+
+
+          <aside class="panel">
+
+            <h3>
+              🚫 Evita
+            </h3>
+
+            <ul>
+
+              <li>
+                Compartir contraseñas o códigos.
+              </li>
+
+              <li>
+                Descargar archivos inesperados.
+              </li>
+
+              <li>
+                Ingresar información sensible desde un enlace
+                recibido inesperadamente.
+              </li>
+
+              <li>
+                Confiar solamente en logos o nombres visibles.
+              </li>
+
+            </ul>
+
+
+            <div class="callout successbox">
+
+              <strong>
+                Transferencia:
+              </strong>
+
+              el mismo criterio puede aplicarse a diferentes
+              canales digitales.
+
             </div>
-          </div>
-          <div class="panel">
-            <h3>Instrucciones</h3>
-            <p>Selecciona una clasificación y escribe una explicación breve. Usa evidencia concreta, no solamente “parece phishing”.</p>
-            <div class="callout warningbox"><strong>Meta:</strong> distinguir la comunicación y explicar por qué la decisión es segura.</div>
-          </div>
+
+          </aside>
+
         </div>
 
-        <!-- FINAL A -->
-        <article class="case" style="margin-top:20px" data-final="1">
-          <div class="case-head"><div><h3>Escenario final A · Becas</h3><div class="case-meta">Nuevo contexto académico</div></div></div>
-          <div class="message"><strong>De:</strong> becas@universidad.edu<br><strong>Asunto:</strong> Información sobre convocatoria de becas<br><br>La oficina de becas informa que la convocatoria para el próximo periodo está disponible. Para conocer los requisitos, entra a la sección de becas del sitio oficial de la universidad utilizando la dirección habitual.</div>
-          <div class="case-body">
-            <span class="case-label">Clasificación</span>
-            <div class="choices" style="margin-top:10px"><button class="choice" onclick="selectFinal(1,'legitimo',this)">✅ Legítima</button><button class="choice" onclick="selectFinal(1,'sospechoso',this)">⚠️ Sospechosa</button><button class="choice" onclick="selectFinal(1,'phishing',this)">🚨 Posible phishing</button></div>
-            <textarea id="final1" class="textarea" placeholder="Justifica tu decisión con evidencia observable."></textarea>
-          </div>
-        </article>
-
-        <!-- FINAL B -->
-        <article class="case" data-final="2">
-          <div class="case-head"><div><h3>Escenario final B · Verificación de cuenta</h3><div class="case-meta">Nuevo contexto de credenciales</div></div></div>
-          <div class="message"><strong>De:</strong> security@uni-verification.com<br><strong>Asunto:</strong> Último aviso: su cuenta será eliminada<br><br>Para evitar la eliminación inmediata de su cuenta, ingrese su contraseña y código de autenticación en el siguiente formulario dentro de los próximos 10 minutos.<br><br><span class="fake-link">https://login-confirmation.example</span></div>
-          <div class="case-body">
-            <span class="case-label">Clasificación</span>
-            <div class="choices" style="margin-top:10px"><button class="choice" onclick="selectFinal(2,'legitimo',this)">✅ Legítima</button><button class="choice" onclick="selectFinal(2,'sospechoso',this)">⚠️ Sospechosa</button><button class="choice" onclick="selectFinal(2,'phishing',this)">🚨 Posible phishing</button></div>
-            <textarea id="final2" class="textarea" placeholder="Menciona las señales de riesgo que sustentan tu decisión."></textarea>
-          </div>
-        </article>
-
-        <!-- FINAL C -->
-        <article class="case" data-final="3">
-          <div class="case-head"><div><h3>Escenario final C · Actividad reciente</h3><div class="case-meta">Nuevo contexto de seguridad</div></div></div>
-          <div class="message"><strong>De:</strong> notificaciones@servicio.edu<br><strong>Asunto:</strong> Actividad reciente en su cuenta<br><br>Hemos registrado un nuevo inicio de sesión. Si reconoce la actividad, no es necesario realizar ninguna acción. Si no reconoce el acceso, ingrese directamente a la aplicación oficial o al sitio que habitualmente utiliza para revisar la seguridad de su cuenta.</div>
-          <div class="case-body">
-            <span class="case-label">Clasificación</span>
-            <div class="choices" style="margin-top:10px"><button class="choice" onclick="selectFinal(3,'legitimo',this)">✅ Legítima</button><button class="choice" onclick="selectFinal(3,'sospechoso',this)">⚠️ Sospechosa</button><button class="choice" onclick="selectFinal(3,'phishing',this)">🚨 Posible phishing</button></div>
-            <textarea id="final3" class="textarea" placeholder="Explica qué señales observas y cómo verificarías el mensaje."></textarea>
-          </div>
-        </article>
-
-        <div class="actions"><button class="btn success" onclick="gradeFinal()">✅ Evaluar mi desempeño</button><button class="btn secondary" onclick="resetFinal()">↺ Reiniciar evaluación</button></div>
-        <div id="finalResult" class="final-result"></div>
       </div>
+
     </section>
 
-    <section id="cierre" class="section">
-      <div class="reflection-card">
-        <div class="section-head"><div><h2>💡 Cierre y transferencia</h2><p>Integra el aprendizaje y llévalo a nuevas situaciones de tu vida académica y cotidiana.</p></div></div>
-        <div class="reflection-grid">
-          <div class="panel">
-            <h3>Pregunta de reflexión</h3>
-            <p>Imagina que recibes un mensaje en correo, WhatsApp o una red social que parece provenir de una institución conocida y te pide actuar inmediatamente. ¿Qué tres acciones realizarías antes de continuar?</p>
-            <label for="reflection" class="sr-only">Respuesta de reflexión</label>
-            <textarea id="reflection" class="textarea" placeholder="Escribe tu reflexión aquí..."></textarea>
+
+    <!-- =========================
+         EVALUACIÓN FINAL
+    ========================= -->
+
+    <section
+      id="evaluacion"
+      class="section">
+
+      <div class="final-card">
+
+        <div class="section-head">
+
+          <div>
+
+            <h2>
+              🎯 Evaluación final
+            </h2>
+
+            <p>
+
+              Demuestra el resultado de aprendizaje
+              en escenarios nuevos.
+
+              La evaluación valora identificación y justificación.
+
+            </p>
+
           </div>
-          <div class="panel">
-            <h3>🧭 Lo esencial</h3>
-            <ul><li>Busca varias señales de riesgo.</li><li>Revisa el remitente y el dominio.</li><li>No actúes por presión.</li><li>Verifica por un canal independiente.</li><li>Justifica tu decisión con evidencia.</li></ul>
-            <div class="callout info"><strong>Supervisión humana:</strong> los escenarios, criterios y retroalimentaciones de EDUFLOW son definidos y validados por el equipo docente.</div>
-          </div>
+
+          <span class="pill">
+            Evidencia de aprendizaje
+          </span>
+
         </div>
-        <div id="completion" class="completion"><div class="seal">✓</div><h2>¡Experiencia EDUFLOW completada!</h2><p id="completionText" class="muted">Has demostrado la competencia central de la microlección.</p><div class="actions" style="justify-content:center"><button class="btn primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Volver al inicio</button></div></div>
+
+
+        <div class="final-grid">
+
+
+          <!-- CRITERIOS -->
+
+          <div class="panel">
+
+            <h3>
+              Criterios
+            </h3>
+
+
+            <div class="criteria">
+
+              <div>
+
+                1️⃣
+
+                <span>
+                  Identificar correctamente señales de phishing.
+                </span>
+
+              </div>
+
+
+              <div>
+
+                2️⃣
+
+                <span>
+                  Tomar una decisión coherente con la evidencia.
+                </span>
+
+              </div>
+
+
+              <div>
+
+                3️⃣
+
+                <span>
+                  Justificar con al menos dos indicadores observables.
+                </span>
+
+              </div>
+
+
+              <div>
+
+                4️⃣
+
+                <span>
+                  Aplicar el criterio a nuevos escenarios.
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- INSTRUCCIONES -->
+
+          <div class="panel">
+
+            <h3>
+              Instrucciones
+            </h3>
+
+            <p>
+
+              Selecciona una clasificación y escribe
+              una explicación breve.
+
+              Usa evidencia concreta,
+              no solamente “parece phishing”.
+
+            </p>
+
+
+            <div class="callout warningbox">
+
+              <strong>
+                Meta:
+              </strong>
+
+              distinguir la comunicación y explicar
+              por qué la decisión es segura.
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             ESCENARIO FINAL A
+        ========================= -->
+
+        <article
+          class="case"
+          style="margin-top:20px"
+          data-final="1">
+
+          <div class="case-head">
+
+            <div>
+
+              <h3>
+                Escenario final A · Becas
+              </h3>
+
+              <div class="case-meta">
+                Nuevo contexto académico
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="message">
+
+            <strong>
+              De:
+            </strong>
+
+            becas@universidad.edu
+
+            <br>
+
+            <strong>
+              Asunto:
+            </strong>
+
+            Información sobre convocatoria de becas
+
+            <br><br>
+
+            La oficina de becas informa que la convocatoria
+            para el próximo periodo está disponible.
+
+            Para conocer los requisitos,
+            entra a la sección de becas del sitio oficial
+            de la universidad utilizando la dirección habitual.
+
+          </div>
+
+
+          <div class="case-body">
+
+            <span class="case-label">
+              Clasificación
+            </span>
+
+
+            <div
+              class="choices"
+              style="margin-top:10px">
+
+              <button
+                class="choice"
+                onclick="selectFinal(1,'legitimo',this)">
+
+                ✅ Legítima
+
+              </button>
+
+
+              <button
+                class="choice"
+                onclick="selectFinal(1,'sospechoso',this)">
+
+                ⚠️ Sospechosa
+
+              </button>
+
+
+              <button
+                class="choice"
+                onclick="selectFinal(1,'phishing',this)">
+
+                🚨 Posible phishing
+
+              </button>
+
+            </div>
+
+
+            <textarea
+              id="final1"
+              class="textarea"
+              placeholder="Justifica tu decisión con evidencia observable.">
+            </textarea>
+
+          </div>
+
+        </article>
+
+
+        <!-- =========================
+             ESCENARIO FINAL B
+        ========================= -->
+
+        <article
+          class="case"
+          data-final="2">
+
+          <div class="case-head">
+
+            <div>
+
+              <h3>
+                Escenario final B · Verificación de cuenta
+              </h3>
+
+              <div class="case-meta">
+                Nuevo contexto de credenciales
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="message">
+
+            <strong>
+              De:
+            </strong>
+
+            security@uni-verification.com
+
+            <br>
+
+            <strong>
+              Asunto:
+            </strong>
+
+            Último aviso: su cuenta será eliminada
+
+            <br><br>
+
+            Para evitar la eliminación inmediata de su cuenta,
+            ingrese su contraseña y código de autenticación
+            en el siguiente formulario dentro de los próximos
+            10 minutos.
+
+            <br><br>
+
+            <span class="fake-link">
+              https://login-confirmation.example
+            </span>
+
+          </div>
+
+
+          <div class="case-body">
+
+            <span class="case-label">
+              Clasificación
+            </span>
+
+
+            <div
+              class="choices"
+              style="margin-top:10px">
+
+              <button
+                class="choice"
+                onclick="selectFinal(2,'legitimo',this)">
+
+                ✅ Legítima
+
+              </button>
+
+
+              <button
+                class="choice"
+                onclick="selectFinal(2,'sospechoso',this)">
+
+                ⚠️ Sospechosa
+
+              </button>
+
+
+              <button
+                class="choice"
+                onclick="selectFinal(2,'phishing',this)">
+
+                🚨 Posible phishing
+
+              </button>
+
+            </div>
+
+
+            <textarea
+              id="final2"
+              class="textarea"
+              placeholder="Menciona las señales de riesgo que sustentan tu decisión.">
+            </textarea>
+
+          </div>
+
+        </article>
+
+
+        <!-- =========================
+             ESCENARIO FINAL C
+        ========================= -->
+
+        <article
+          class="case"
+          data-final="3">
+
+          <div class="case-head">
+
+            <div>
+
+              <h3>
+                Escenario final C · Actividad reciente
+              </h3>
+
+              <div class="case-meta">
+                Nuevo contexto de seguridad
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="message">
+
+            <strong>
+              De:
+            </strong>
+
+            notificaciones@servicio.edu
+
+            <br>
+
+            <strong>
+              Asunto:
+            </strong>
+
+            Actividad reciente en su cuenta
+
+            <br><br>
+
+            Hemos registrado un nuevo inicio de sesión.
+
+            Si reconoce la actividad,
+            no es necesario realizar ninguna acción.
+
+            Si no reconoce el acceso,
+            ingrese directamente a la aplicación oficial
+            o al sitio que habitualmente utiliza
+            para revisar la seguridad de su cuenta.
+
+          </div>
+
+
+          <div class="case-body">
+
+            <span class="case-label">
+              Clasificación
+            </span>
+
+
+            <div
+              class="choices"
+              style="margin-top:10px">
+
+              <button
+                class="choice"
+                onclick="selectFinal(3,'legitimo',this)">
+
+                ✅ Legítima
+
+              </button>
+
+
+              <button
+                class="choice"
+                onclick="selectFinal(3,'sospechoso',this)">
+
+                ⚠️ Sospechosa
+
+              </button>
+
+
+              <button
+                class="choice"
+                onclick="selectFinal(3,'phishing',this)">
+
+                🚨 Posible phishing
+
+              </button>
+
+            </div>
+
+
+            <textarea
+              id="final3"
+              class="textarea"
+              placeholder="Explica qué señales observas y cómo verificarías el mensaje.">
+            </textarea>
+
+          </div>
+
+        </article>
+
+
+        <!-- BOTONES -->
+
+        <div class="actions">
+
+          <button
+            class="btn success"
+            onclick="gradeFinal()">
+
+            ✅ Evaluar mi desempeño
+
+          </button>
+
+
+          <button
+            class="btn secondary"
+            onclick="resetFinal()">
+
+            ↺ Reiniciar evaluación
+
+          </button>
+
+        </div>
+
+
+        <div
+          id="finalResult"
+          class="final-result">
+        </div>
+
       </div>
+
+    </section>
+
+
+    <!-- =========================
+         CIERRE
+    ========================= -->
+
+    <section
+      id="cierre"
+      class="section">
+
+      <div class="reflection-card">
+
+        <div class="section-head">
+
+          <div>
+
+            <h2>
+              💡 Cierre y transferencia
+            </h2>
+
+            <p>
+
+              Integra el aprendizaje y llévalo
+              a nuevas situaciones de tu vida académica
+              y cotidiana.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="reflection-grid">
+
+
+          <!-- REFLEXIÓN -->
+
+          <div class="panel">
+
+            <h3>
+              Pregunta de reflexión
+            </h3>
+
+            <p>
+
+              Imagina que recibes un mensaje en correo,
+              WhatsApp o una red social que parece provenir
+              de una institución conocida y te pide actuar
+              inmediatamente.
+
+              ¿Qué tres acciones realizarías antes de continuar?
+
+            </p>
+
+
+            <label
+              for="reflection"
+              class="sr-only">
+
+              Respuesta de reflexión
+
+            </label>
+
+
+            <textarea
+              id="reflection"
+              class="textarea"
+              placeholder="Escribe tu reflexión aquí...">
+            </textarea>
+
+          </div>
+
+
+          <!-- LO ESENCIAL -->
+
+          <div class="panel">
+
+            <h3>
+              🧭 Lo esencial
+            </h3>
+
+            <ul>
+
+              <li>
+                Busca varias señales de riesgo.
+              </li>
+
+              <li>
+                Revisa el remitente y el dominio.
+              </li>
+
+              <li>
+                No actúes por presión.
+              </li>
+
+              <li>
+                Verifica por un canal independiente.
+              </li>
+
+              <li>
+                Justifica tu decisión con evidencia.
+              </li>
+
+            </ul>
+
+
+            <div class="callout info">
+
+              <strong>
+                Supervisión humana:
+              </strong>
+
+              los escenarios, criterios y retroalimentaciones
+              de EDUFLOW son definidos y validados por el equipo docente.
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- COMPLETADO -->
+
+        <div
+          id="completion"
+          class="completion">
+
+          <div class="seal">
+            ✓
+          </div>
+
+          <h2>
+            ¡Experiencia EDUFLOW completada!
+          </h2>
+
+          <p
+            id="completionText"
+            class="muted">
+
+            Has demostrado la competencia central
+            de la microlección.
+
+          </p>
+
+
+          <div
+            class="actions"
+            style="justify-content:center">
+
+            <button
+              class="btn primary"
+              onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+              ⬆ Volver al inicio
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
 
   </main>
 
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
   <footer>
+
     <div class="container footer-grid">
-      <div><strong>EDUFLOW</strong> · Microlearning interactivo para la identificación del phishing.</div>
-      <div>Aplicación Web desarrollada con apoyo de Google AI Studio · <span id="year"></span></div>
+
+      <div>
+
+        <strong>
+          EDUFLOW
+        </strong>
+
+        · Microlearning interactivo
+        para la identificación del phishing.
+
+      </div>
+
+
+      <div>
+
+        Aplicación Web desarrollada
+        con apoyo de Google AI Studio ·
+
+        <span id="year"></span>
+
+      </div>
+
     </div>
-    <div class="container" style="margin-top:8px">🔐 Los casos son simulados. No introduzcas contraseñas, códigos MFA, datos bancarios, documentos de identidad ni otra información personal sensible.</div>
+
+
+    <div
+      class="container"
+      style="margin-top:8px">
+
+      🔐 Los casos son simulados.
+
+      No introduzcas contraseñas,
+      códigos MFA, datos bancarios,
+      documentos de identidad ni otra
+      información personal sensible.
+
+    </div>
+
   </footer>
 
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
   <script>
-    const progress={diagnostico:false, microlearning:true, casos:false, evaluacion:false};
-    const caseSelections={}, finalSelections={};
+
+    /*
+      =====================================================
+      EDUFLOW
+      =====================================================
+
+      La aplicación utiliza retroalimentación controlada.
+      No solicita datos personales sensibles.
+
+      La lógica pedagógica busca que el estudiante:
+      1. Observe.
+      2. Identifique señales.
+      3. Evalúe contexto.
+      4. Decida.
+      5. Justifique.
+      6. Verifique antes de actuar.
+    */
+
+
+    /* =========================================
+       ESTADO DEL PROGRESO
+    ========================================= */
+
+    const progress = {
+
+      diagnostico:false,
+
+      microlearning:true,
+
+      casos:false,
+
+      evaluacion:false
+
+    };
+
+
+    const caseSelections = {};
+
+    const finalSelections = {};
+
+
+    /*
+      Guarda la decisión del diagnóstico.
+      Permite obligar al estudiante a seleccionar
+      una de las tres alternativas antes de continuar.
+    */
+
+    let diagnosticChoice = null;
+
+
+    /* =========================================
+       ACTUALIZAR PROGRESO
+    ========================================= */
 
     function updateProgress(){
-      const total=4, completed=Object.values(progress).filter(Boolean).length, pct=Math.round(completed/total*100);
-      document.getElementById('progressPercent').textContent=pct+'%';
-      document.getElementById('progressLabel').textContent=completed+' de '+total+' etapas';
-      document.getElementById('progressBar').style.width=pct+'%';
-      if(progress.diagnostico&&progress.casos&&progress.evaluacion){
-        document.getElementById('completion').classList.add('show');
+
+      const total = 4;
+
+      const completed =
+        Object.values(progress)
+          .filter(Boolean)
+          .length;
+
+      const pct =
+        Math.round(
+          completed / total * 100
+        );
+
+
+      document.getElementById(
+        'progressPercent'
+      ).textContent =
+        pct + '%';
+
+
+      document.getElementById(
+        'progressLabel'
+      ).textContent =
+        completed +
+        ' de ' +
+        total +
+        ' etapas';
+
+
+      document.getElementById(
+        'progressBar'
+      ).style.width =
+        pct + '%';
+
+
+      if(
+        progress.diagnostico &&
+        progress.casos &&
+        progress.evaluacion
+      ){
+
+        document
+          .getElementById('completion')
+          .classList
+          .add('show');
+
       }
+
     }
 
-    function diagnose(value,btn){
-      document.querySelectorAll('#diagnostico .choice').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
-      const box=document.getElementById('diagnosticFeedback'); box.className='feedback show';
-      if(value==='phishing'){
-        box.classList.add('good'); box.innerHTML='<strong>🚨 Buena observación.</strong><p>El mensaje presenta varias señales: dominio no claramente institucional, urgencia, enlace inesperado y solicitud de verificación. En una situación real, conviene verificar por un canal oficial independiente.</p>';
-      }else if(value==='sospechoso'){
-        box.classList.add('warn'); box.innerHTML='<strong>⚠️ Vas por buen camino.</strong><p>La clave es convertir la duda en evidencia: revisa el remitente, el dominio, la urgencia, el enlace y la información solicitada.</p>';
-      }else{
-        box.classList.add('warn'); box.innerHTML='<strong>📘 Revisa las señales.</strong><p>Una comunicación puede parecer institucional y aun así ser fraudulenta. Busca varias señales antes de actuar.</p>';
+
+    /* =========================================
+       DIAGNÓSTICO INICIAL
+    ========================================= */
+
+    function diagnose(value, btn){
+
+      /*
+        Guardamos la elección del estudiante.
+      */
+
+      diagnosticChoice = value;
+
+
+      /*
+        Quitamos selección anterior.
+      */
+
+      document
+        .querySelectorAll(
+          '#diagnostico .choice'
+        )
+        .forEach(
+          b =>
+            b.classList.remove(
+              'selected'
+            )
+        );
+
+
+      /*
+        Destacamos la alternativa seleccionada.
+      */
+
+      btn.classList.add(
+        'selected'
+      );
+
+
+      /*
+        Mostramos retroalimentación.
+      */
+
+      const box =
+        document.getElementById(
+          'diagnosticFeedback'
+        );
+
+
+      box.className =
+        'feedback show';
+
+
+      /* =====================================
+         POSIBLE PHISHING
+      ===================================== */
+
+      if(value === 'phishing'){
+
+        box.classList.add(
+          'good'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '🚨 Buena observación.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'Has identificado la clasificación que mejor ' +
+            'encaja con la evidencia disponible. ' +
+
+            'En el mensaje aparecen varias señales de riesgo: ' +
+
+            'un dominio que no coincide claramente con la institución, ' +
+            'una amenaza de suspensión, urgencia, ' +
+            'un enlace inesperado y una solicitud de verificación.' +
+
+          '</p>' +
+
+          '<p>' +
+
+            'En una situación real, no deberías hacer clic ' +
+            'ni proporcionar credenciales. ' +
+
+            '<strong>' +
+            'Verifica siempre mediante un canal oficial independiente.' +
+            '</strong>' +
+
+          '</p>' +
+
+          '<p>' +
+
+            '<strong>Recuerda:</strong> ' +
+
+            'la meta de EDUFLOW no es adivinar, ' +
+            'sino explicar la decisión mediante señales observables.' +
+
+          '</p>';
+
       }
+
+
+      /* =====================================
+         ME GENERA DUDAS
+      ===================================== */
+
+      else if(value === 'sospechoso'){
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '⚠️ Buena precaución.' +
+          '</strong>' +
+
+          '<p>' +
+
+            '“Me genera dudas” significa que todavía ' +
+            'no debes actuar porque existe información ' +
+            'que requiere comprobación.' +
+
+          '</p>' +
+
+          '<p>' +
+
+            'En este ejemplo aparecen varios elementos ' +
+            'que elevan el riesgo y, al analizarlos juntos, ' +
+            'permiten avanzar hacia la clasificación de ' +
+            '<strong>posible phishing</strong>.' +
+
+          '</p>' +
+
+          '<p>' +
+
+            '<strong>Regla:</strong> ' +
+
+            'ante la duda, detente y verifica por un canal oficial.' +
+
+          '</p>';
+
+      }
+
+
+      /* =====================================
+         PARECE LEGÍTIMO
+      ===================================== */
+
+      else{
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '📘 Analicemos nuevamente.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'Un mensaje puede utilizar lenguaje formal ' +
+            'o mencionar una cuenta universitaria y aun así ' +
+            'ser fraudulento.' +
+
+          '</p>' +
+
+          '<p>' +
+
+            'Observa especialmente:' +
+
+            '<strong>' +
+            ' remitente, dominio, urgencia, enlace ' +
+            'y solicitud de información sensible.' +
+            '</strong>' +
+
+          '</p>' +
+
+          '<p>' +
+
+            'Vuelve al mensaje y pregúntate:' +
+
+            '<strong>' +
+            ' ¿qué señales concretas puedo señalar?' +
+            '</strong>' +
+
+          '</p>';
+
+      }
+
     }
 
-    function completeDiagnostic(){ progress.diagnostico=true; updateProgress(); document.getElementById('microlearning').scrollIntoView({behavior:'smooth'}); }
 
-    function selectCase(id,value,btn){
-      caseSelections[id]=value;
-      btn.parentElement.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected');
-      document.getElementById('evidence'+id).classList.add('show');
+    /* =========================================
+       CONTINUAR DESDE DIAGNÓSTICO
+    ========================================= */
+
+    function completeDiagnostic(){
+
+      /*
+        El estudiante debe seleccionar primero.
+      */
+
+      if(!diagnosticChoice){
+
+        const box =
+          document.getElementById(
+            'diagnosticFeedback'
+          );
+
+
+        box.className =
+          'feedback show warn';
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '⚠️ Primero toma una decisión.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'Selecciona una de las tres opciones.' +
+
+            ' No necesitas estar completamente seguro; ' +
+
+            'debes elegir la opción que mejor represente ' +
+            'tu evaluación y después contrastarla con ' +
+            'la retroalimentación.' +
+
+          '</p>';
+
+        return;
+
+      }
+
+
+      /*
+        Registramos la etapa como completada.
+      */
+
+      progress.diagnostico =
+        true;
+
+
+      updateProgress();
+
+
+      /*
+        Pasamos al contenido principal.
+      */
+
+      document
+        .getElementById(
+          'microlearning'
+        )
+        .scrollIntoView({
+          behavior:'smooth'
+        });
+
     }
+
+
+    /* =========================================
+       SELECCIONAR CASO
+    ========================================= */
+
+    function selectCase(id, value, btn){
+
+      caseSelections[id] =
+        value;
+
+
+      /*
+        Quitamos la selección anterior
+        solamente dentro del caso actual.
+      */
+
+      btn.parentElement
+        .querySelectorAll(
+          '.choice'
+        )
+        .forEach(
+          b =>
+            b.classList.remove(
+              'selected'
+            )
+        );
+
+
+      btn.classList.add(
+        'selected'
+      );
+
+
+      /*
+        Mostramos los indicadores.
+      */
+
+      document
+        .getElementById(
+          'evidence' + id
+        )
+        .classList
+        .add(
+          'show'
+        );
+
+    }
+
+
+    /* =========================================
+       EVALUAR CASO
+    ========================================= */
 
     function evaluateCase(id){
-      const correct={1:'phishing',2:'legitimo',3:'phishing'}[id];
-      const selected=caseSelections[id];
-      const checked=[...document.querySelectorAll('input[data-case="'+id+'"]:checked')];
-      const justification=document.getElementById('justification'+id).value.trim();
-      const box=document.getElementById('feedback'+id); box.className='feedback show';
-      if(!selected){box.classList.add('warn');box.innerHTML='<strong>⚠️ Selecciona una clasificación.</strong>';return;}
-      if(selected!==correct){box.classList.add('warn');box.innerHTML='<strong>📘 Revisa el caso.</strong><p>La clasificación esperada es <strong>'+label(correct)+'</strong>. Vuelve al mensaje y busca evidencia observable.</p>';return;}
-      if(checked.length<2){box.classList.add('warn');box.innerHTML='<strong>🔎 Faltan evidencias.</strong><p>La clasificación es coherente, pero debes sustentarla con al menos dos indicadores observables.</p>';return;}
-      if(justification.length<20){box.classList.add('warn');box.innerHTML='<strong>✍️ Amplía tu justificación.</strong><p>Conecta las señales seleccionadas con tu decisión en una explicación breve.</p>';return;}
-      box.classList.add('good');box.innerHTML='<strong>✅ Decisión bien fundamentada.</strong><p>Has relacionado la clasificación con evidencia observable y una justificación. Esta es la competencia central de EDUFLOW.</p>';
-      caseSelections[id+'_done']=true;
-      if(caseSelections['1_done']&&caseSelections['2_done']&&caseSelections['3_done']){progress.casos=true;updateProgress();}
+
+      const correct = {
+
+        1:'phishing',
+
+        2:'legitimo',
+
+        3:'phishing'
+
+      }[id];
+
+
+      const selected =
+        caseSelections[id];
+
+
+      const checked =
+        [
+          ...document.querySelectorAll(
+            'input[data-case="' +
+            id +
+            '"]:checked'
+          )
+        ];
+
+
+      const justification =
+        document
+          .getElementById(
+            'justification' + id
+          )
+          .value
+          .trim();
+
+
+      const box =
+        document.getElementById(
+          'feedback' + id
+        );
+
+
+      box.className =
+        'feedback show';
+
+
+      /* NO SELECCIÓN */
+
+      if(!selected){
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+          '<strong>⚠️ Selecciona una clasificación.</strong>' +
+
+          '<p>' +
+
+            'Debes escoger una de las tres opciones ' +
+            'antes de justificar tu decisión.' +
+
+          '</p>';
+
+        return;
+
+      }
+
+
+      /* CLASIFICACIÓN INCORRECTA */
+
+      if(selected !== correct){
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '📘 Revisa el caso.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'La clasificación esperada es ' +
+
+            '<strong>' +
+
+              label(correct) +
+
+            '</strong>' +
+
+            '. Vuelve al mensaje y busca evidencia observable.' +
+
+          '</p>';
+
+        return;
+
+      }
+
+
+      /* MENOS DE DOS INDICADORES */
+
+      if(checked.length < 2){
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '🔎 Faltan evidencias.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'La clasificación es coherente, ' +
+
+            'pero debes sustentarla con ' +
+
+            '<strong>' +
+              'al menos dos indicadores observables' +
+            '</strong>' +
+
+            '.' +
+
+          '</p>';
+
+        return;
+
+      }
+
+
+      /* JUSTIFICACIÓN DEMASIADO CORTA */
+
+      if(justification.length < 20){
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '✍️ Amplía tu justificación.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'Conecta las señales seleccionadas ' +
+            'con tu decisión en una explicación breve.' +
+
+          '</p>';
+
+        return;
+
+      }
+
+
+      /* TODO CORRECTO */
+
+      box.classList.add(
+        'good'
+      );
+
+
+      box.innerHTML =
+
+        '<strong>' +
+          '✅ Decisión bien fundamentada.' +
+        '</strong>' +
+
+        '<p>' +
+
+          'Has relacionado la clasificación ' +
+          'con evidencia observable y una justificación.' +
+
+          ' Esta es la competencia central de EDUFLOW.' +
+
+        '</p>';
+
+
+      /*
+        Marcamos el caso como completado.
+      */
+
+      caseSelections[
+        id + '_done'
+      ] = true;
+
+
+      /*
+        Si los tres casos fueron superados,
+        marcamos la etapa.
+      */
+
+      if(
+
+        caseSelections['1_done'] &&
+
+        caseSelections['2_done'] &&
+
+        caseSelections['3_done']
+
+      ){
+
+        progress.casos =
+          true;
+
+
+        updateProgress();
+
+      }
+
     }
 
-    function label(v){return {legitimo:'Legítima',sospechoso:'Sospechosa',phishing:'Posible phishing'}[v]||v;}
 
-    function selectFinal(id,value,btn){
-      finalSelections[id]=value;
-      btn.parentElement.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+    /* =========================================
+       ETIQUETAS
+    ========================================= */
+
+    function label(v){
+
+      return {
+
+        legitimo:'Legítima',
+
+        sospechoso:'Sospechosa',
+
+        phishing:'Posible phishing'
+
+      }[v] || v;
+
     }
+
+
+    /* =========================================
+       EVALUACIÓN FINAL
+    ========================================= */
+
+    function selectFinal(id, value, btn){
+
+      finalSelections[id] =
+        value;
+
+
+      btn.parentElement
+        .querySelectorAll(
+          '.choice'
+        )
+        .forEach(
+          b =>
+            b.classList.remove(
+              'selected'
+            )
+        );
+
+
+      btn.classList.add(
+        'selected'
+      );
+
+    }
+
+
+    /* =========================================
+       CALIFICAR EVALUACIÓN FINAL
+    ========================================= */
 
     function gradeFinal(){
-      const correct={1:'legitimo',2:'phishing',3:'legitimo'};
-      let classification=0, justification=0, missing=[];
-      for(let i=1;i<=3;i++){
-        if(!finalSelections[i])missing.push('Escenario '+i);
-        else if(finalSelections[i]===correct[i])classification++;
-        if(document.getElementById('final'+i).value.trim().length>=20)justification++;
+
+      const correct = {
+
+        1:'legitimo',
+
+        2:'phishing',
+
+        3:'legitimo'
+
+      };
+
+
+      let classification =
+        0;
+
+
+      let justification =
+        0;
+
+
+      const missing =
+        [];
+
+
+      for(
+        let i=1;
+        i<=3;
+        i++
+      ){
+
+        if(
+          !finalSelections[i]
+        ){
+
+          missing.push(
+            'Escenario ' + i
+          );
+
+        }
+
+        else if(
+          finalSelections[i] ===
+          correct[i]
+        ){
+
+          classification++;
+
+        }
+
+
+        if(
+
+          document
+            .getElementById(
+              'final' + i
+            )
+            .value
+            .trim()
+            .length >= 20
+
+        ){
+
+          justification++;
+
+        }
+
       }
-      const box=document.getElementById('finalResult');box.className='final-result show';
-      if(missing.length){box.classList.add('warn');box.innerHTML='<strong>⚠️ Completa las clasificaciones.</strong><p>Falta seleccionar: '+missing.join(', ')+'.</p>';return;}
-      const total=classification+justification,pct=Math.round(total/6*100);
-      if(classification===3&&justification===3){progress.evaluacion=true;updateProgress();box.classList.add('good');box.innerHTML='<strong>🎉 Resultado de aprendizaje demostrado.</strong><p>Clasificaste correctamente los tres escenarios y justificaste tus decisiones. Puntuación: <strong>'+total+'/6 ('+pct+'%)</strong>.</p><p class="muted">La evidencia muestra identificación, decisión coherente y argumentación con indicadores observables.</p>';}else{box.classList.add('warn');box.innerHTML='<strong>📘 Sigue practicando.</strong><p>Obtuviste <strong>'+total+'/6 ('+pct+'%)</strong>. Revisa las señales y fortalece tus justificaciones. La meta no es adivinar: es explicar la decisión con evidencia.</p>';}
+
+
+      const box =
+        document.getElementById(
+          'finalResult'
+        );
+
+
+      box.className =
+        'final-result show';
+
+
+      /*
+        Faltan clasificaciones.
+      */
+
+      if(
+        missing.length
+      ){
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '⚠️ Completa las clasificaciones.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'Falta seleccionar: ' +
+
+            missing.join(
+              ', '
+            ) +
+
+            '.' +
+
+          '</p>';
+
+
+        return;
+
+      }
+
+
+      const total =
+        classification +
+        justification;
+
+
+      const pct =
+        Math.round(
+          total / 6 * 100
+        );
+
+
+      /*
+        Resultado máximo.
+      */
+
+      if(
+
+        classification === 3 &&
+
+        justification === 3
+
+      ){
+
+        progress.evaluacion =
+          true;
+
+
+        updateProgress();
+
+
+        box.classList.add(
+          'good'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '🎉 Resultado de aprendizaje demostrado.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'Clasificaste correctamente los tres escenarios ' +
+            'y justificaste tus decisiones.' +
+
+            ' Puntuación: ' +
+
+            '<strong>' +
+
+              total +
+              '/6 (' +
+              pct +
+              '%)' +
+
+            '</strong>.' +
+
+          '</p>' +
+
+          '<p class="muted">' +
+
+            'La evidencia muestra identificación, decisión ' +
+            'coherente y argumentación con indicadores observables.' +
+
+          '</p>';
+
+      }
+
+
+      /*
+        Resultado que requiere refuerzo.
+      */
+
+      else{
+
+        box.classList.add(
+          'warn'
+        );
+
+
+        box.innerHTML =
+
+          '<strong>' +
+            '📘 Sigue practicando.' +
+          '</strong>' +
+
+          '<p>' +
+
+            'Obtuviste ' +
+
+            '<strong>' +
+
+              total +
+              '/6 (' +
+              pct +
+              '%)' +
+
+            '</strong>.' +
+
+            ' Revisa las señales y fortalece tus justificaciones.' +
+
+          '</p>' +
+
+          '<p>' +
+
+            'La meta no es adivinar: ' +
+
+            '<strong>' +
+
+              'es explicar la decisión con evidencia.' +
+
+            '</strong>' +
+
+          '</p>';
+
+      }
+
     }
+
+
+    /* =========================================
+       REINICIAR EVALUACIÓN FINAL
+    ========================================= */
 
     function resetFinal(){
-      Object.keys(finalSelections).forEach(k=>delete finalSelections[k]);
-      document.querySelectorAll('[data-final] .choice').forEach(b=>b.classList.remove('selected'));
-      document.querySelectorAll('textarea[id^="final"]').forEach(t=>t.value='');
-      document.getElementById('finalResult').className='final-result';
-      progress.evaluacion=false;updateProgress();
+
+      Object.keys(
+        finalSelections
+      )
+      .forEach(
+        k =>
+          delete finalSelections[k]
+      );
+
+
+      document
+        .querySelectorAll(
+          '[data-final] .choice'
+        )
+        .forEach(
+          b =>
+            b.classList.remove(
+              'selected'
+            )
+        );
+
+
+      document
+        .querySelectorAll(
+          'textarea[id^="final"]'
+        )
+        .forEach(
+          t =>
+            t.value=''
+        );
+
+
+      document.getElementById(
+        'finalResult'
+      ).className =
+        'final-result';
+
+
+      progress.evaluacion =
+        false;
+
+
+      updateProgress();
+
     }
 
-    document.getElementById('year').textContent=new Date().getFullYear();
+
+    /* =========================================
+       AÑO
+    ========================================= */
+
+    document.getElementById(
+      'year'
+    ).textContent =
+      new Date().getFullYear();
+
+
+    /* =========================================
+       INICIALIZAR PROGRESO
+    ========================================= */
+
     updateProgress();
 
-    const links=[...document.querySelectorAll('.navlinks a')], targets=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-25% 0 -60% 0'});
-    targets.forEach(t=>obs.observe(t));
+
+    /* =========================================
+       NAVEGACIÓN ACTIVA
+    ========================================= */
+
+    const links =
+      [
+        ...document.querySelectorAll(
+          '.navlinks a'
+        )
+      ];
+
+
+    const targets =
+      links
+        .map(
+          a =>
+            document.querySelector(
+              a.getAttribute(
+                'href'
+              )
+            )
+        )
+        .filter(Boolean);
+
+
+    const obs =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            e => {
+
+              if(
+                e.isIntersecting
+              ){
+
+                links.forEach(
+                  a => {
+
+                    a.classList.toggle(
+
+                      'active',
+
+                      a.getAttribute(
+                        'href'
+                      ) ===
+                      '#' +
+                      e.target.id
+
+                    );
+
+                  }
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          rootMargin:
+            '-25% 0 -60% 0'
+        }
+      );
+
+
+    targets.forEach(
+      t =>
+        obs.observe(t)
+    );
+
   </script>
+
 </body>
 </html>
